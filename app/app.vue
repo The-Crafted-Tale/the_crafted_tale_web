@@ -103,7 +103,38 @@
         <PriceTag :amount="25000" />
       </div>
     </section>
+
+    <!-- Product Cards -->
+    <section class="showcase__section showcase__section--wide">
+      <h2 class="showcase__heading">ProductCard</h2>
+      <div class="showcase__product-grid">
+        <ProductCard v-for="product in mockProducts" :key="product.slug" :product="product" />
+      </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">ImageGallery</h2>
+      <div class="showcase__gallery-wrap">
+        <ImageGallery :images="mockGalleryImages" alt="Showcase product" />
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">ContactForm</h2>
+      <ContactForm prefill-product="Royal Wedding Card" @submit="onContactSubmit" />
+      <p v-if="contactSubmitted" class="showcase__success">Form submitted successfully!</p>
+    </section>
+
+    <!-- Social Items -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">SocialItems (refactored with @nuxt/icon)</h2>
+      <SocialItems />
+    </section>
   </div>
+
+  <WhatsAppFloat />
 </template>
 
 <script setup lang="ts">
@@ -112,6 +143,44 @@ const demoEmail = ref('')
 const demoPhone = ref('')
 const demoError = ref('')
 const demoMessage = ref('')
+
+const mockProducts = [
+  {
+    name: 'Royal Wedding Invitation',
+    slug: 'royal-wedding-invitation',
+    price: 1299,
+    category: 'custom' as const,
+    images: ['https://placehold.co/400x400/fce0e5/8e0026?text=Wedding+Card'],
+  },
+  {
+    name: 'Floral Birthday Card',
+    slug: 'floral-birthday-card',
+    price: 450,
+    category: 'ready_made' as const,
+    images: ['https://placehold.co/400x400/d1fae5/065f46?text=Birthday+Card'],
+  },
+  {
+    name: 'Elegant Anniversary Card',
+    slug: 'elegant-anniversary-card',
+    price: 899,
+    category: 'semi_custom' as const,
+    images: ['https://placehold.co/400x400/ede9fe/5b21b6?text=Anniversary'],
+  },
+]
+
+const mockGalleryImages = [
+  'https://placehold.co/600x600/fce0e5/8e0026?text=Image+1',
+  'https://placehold.co/600x600/d1fae5/065f46?text=Image+2',
+  'https://placehold.co/600x600/ede9fe/5b21b6?text=Image+3',
+  'https://placehold.co/600x600/fef3c7/92400e?text=Image+4',
+]
+
+const contactSubmitted = ref(false)
+function onContactSubmit(payload: { name: string; email: string; phone: string; message: string }) {
+  console.log('Contact form submitted:', payload)
+  contactSubmitted.value = true
+  setTimeout(() => { contactSubmitted.value = false }, 3000)
+}
 </script>
 
 <style lang="scss">
@@ -212,6 +281,27 @@ const demoMessage = ref('')
     font-family: $font-cursive;
     font-size: 1.75rem;
     color: $brand-red;
+  }
+
+  &__section--wide {
+    max-width: 64rem;
+  }
+
+  &__product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  &__gallery-wrap {
+    max-width: 24rem;
+  }
+
+  &__success {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $success;
   }
 
   // --- color swatches ---
