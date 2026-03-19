@@ -1,395 +1,248 @@
 <template>
-  <div class="app">
-    <main class="waitlist">
-      <img :src="logo" alt="The Crafted Tale" class="logo" />
-      <div class="waitlist-card">
-        <Transition name="card-swap" mode="out-in">
-          <div v-if="success" key="success" class="success-card">
-            <div class="success-icon" aria-hidden="true">✓</div>
-            <h2 class="success-title">You're on the list</h2>
-            <p class="success-msg">You are successfully added to waitlist, we'll reach out to you soon once our store opens.</p>
-          </div>
-          <div v-else key="form" class="form-wrap">
-            <h1 class="waitlist-title">Join the Waitlist</h1>
-            <p class="waitlist-subtitle">Be the first to know when we launch. We'll reach out via your preferred channel.</p>
+  <div class="showcase">
+    <h1 class="showcase__title">Component Showcase</h1>
 
-            <form class="waitlist-form" @submit.prevent="handleSubmit">
-              <div class="contact-type">
-                <label class="radio-label">
-                  <input
-                    v-model="contactType"
-                    type="radio"
-                    name="contact"
-                    value="email"
-                    class="radio-input"
-                  />
-                  <span class="radio-custom">Email</span>
-                </label>
-                <label class="radio-label">
-                  <input
-                    v-model="contactType"
-                    type="radio"
-                    name="contact"
-                    value="whatsapp"
-                    class="radio-input"
-                  />
-                  <span class="radio-custom">WhatsApp</span>
-                </label>
-              </div>
-
-              <div class="input-wrapper" v-if="contactType === 'email'">
-                <input
-                  v-model="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  class="input"
-                  :class="{ 'input-error': submitted && !isEmailValid }"
-                  required
-                />
-                <p v-if="submitted && !isEmailValid" class="error-msg">{{ emailError }}</p>
-              </div>
-
-              <div class="input-wrapper" v-else>
-                <input
-                  v-model="whatsapp"
-                  type="tel"
-                  placeholder="Enter your WhatsApp number (e.g. +1 555 123 4567)"
-                  class="input"
-                  :class="{ 'input-error': submitted && !isWhatsAppValid }"
-                />
-                <p v-if="submitted && !isWhatsAppValid" class="error-msg">{{ whatsappError }}</p>
-              </div>
-
-              <button type="submit" class="submit-btn" :disabled="loading">Join Waitlist</button>
-              <p v-if="error" class="error-msg">{{ error }}</p>
-            </form>
-          </div>
-        </Transition>
+    <!-- Logo -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">AppLogo</h2>
+      <div class="showcase__row">
+        <div class="showcase__item">
+          <span class="showcase__label">sm</span>
+          <AppLogo size="sm" />
+        </div>
+        <div class="showcase__item">
+          <span class="showcase__label">md</span>
+          <AppLogo size="md" />
+        </div>
+        <div class="showcase__item">
+          <span class="showcase__label">lg</span>
+          <AppLogo size="lg" />
+        </div>
       </div>
-      <SocialItems />
-    </main>
+    </section>
+
+    <!-- Typography -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">Typography</h2>
+      <p class="showcase__font-display">Playfair Display — The Crafted Tale</p>
+      <p class="showcase__font-body">Poppins — Clean body text for the storefront</p>
+      <p class="showcase__font-cursive">Great Vibes — Handcrafted with love</p>
+    </section>
+
+    <!-- Colors -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">Brand Colors</h2>
+      <div class="showcase__row">
+        <div class="showcase__swatch showcase__swatch--red">
+          <span>$brand-red</span>
+          <span>#D02953</span>
+        </div>
+        <div class="showcase__swatch showcase__swatch--red-dark">
+          <span>$brand-red-dark</span>
+          <span>#8E0026</span>
+        </div>
+        <div class="showcase__swatch showcase__swatch--gold">
+          <span>$brand-gold</span>
+          <span>#E6D677</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">AppButton — Variants</h2>
+      <div class="showcase__row">
+        <AppButton variant="primary">Primary</AppButton>
+        <AppButton variant="secondary">Secondary</AppButton>
+        <AppButton variant="ghost">Ghost</AppButton>
+      </div>
+
+      <h3 class="showcase__subheading">Sizes</h3>
+      <div class="showcase__row">
+        <AppButton size="sm">Small</AppButton>
+        <AppButton size="md">Medium</AppButton>
+        <AppButton size="lg">Large</AppButton>
+      </div>
+
+      <h3 class="showcase__subheading">States</h3>
+      <div class="showcase__row">
+        <AppButton :loading="true">Loading...</AppButton>
+        <AppButton :disabled="true">Disabled</AppButton>
+        <AppButton href="/products" variant="secondary">As Link</AppButton>
+      </div>
+    </section>
+
+    <!-- Inputs -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">AppInput</h2>
+      <div class="showcase__grid">
+        <AppInput label="Name" placeholder="Enter your name" v-model="demoName" />
+        <AppInput label="Email" type="email" placeholder="you@example.com" v-model="demoEmail" />
+        <AppInput label="Phone" type="tel" placeholder="+91 98765 43210" v-model="demoPhone" />
+        <AppInput label="With Error" placeholder="Required field" error="This field is required" v-model="demoError" />
+        <AppInput label="Message" type="textarea" placeholder="Tell us about your order..." v-model="demoMessage" />
+      </div>
+    </section>
+
+    <!-- Category Badges -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">CategoryBadge</h2>
+      <div class="showcase__row">
+        <CategoryBadge category="custom" />
+        <CategoryBadge category="semi_custom" />
+        <CategoryBadge category="ready_made" />
+      </div>
+    </section>
+
+    <!-- Price Tags -->
+    <section class="showcase__section">
+      <h2 class="showcase__heading">PriceTag</h2>
+      <div class="showcase__row">
+        <PriceTag :amount="450" />
+        <PriceTag :amount="1299" />
+        <PriceTag :amount="25000" />
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import logo from './assets/images/logo.svg'
-
-const contactType = ref<'email' | 'whatsapp'>('email')
-const email = ref('')
-const whatsapp = ref('')
-const submitted = ref(false)
-const success = ref(false)
-const loading = ref(false)
-const error = ref('')
-
-// Email: non-empty, valid format (local@domain.tld)
-const isEmailValid = computed(() => {
-  const trimmed = email.value.trim()
-  if (!trimmed) return false
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)
-})
-
-// WhatsApp: non-empty, exactly 10 digits (allows +, spaces, dashes, parentheses for formatting)
-const isWhatsAppValid = computed(() => {
-  const trimmed = whatsapp.value.trim()
-  if (!trimmed) return false
-  const digitsOnly = trimmed.replace(/\D/g, '')
-  return digitsOnly.length === 10
-})
-
-const emailError = computed(() => {
-  const trimmed = email.value.trim()
-  if (!trimmed) return 'Please enter your email'
-  return 'Please enter a valid email address'
-})
-
-const whatsappError = computed(() => {
-  const trimmed = whatsapp.value.trim()
-  if (!trimmed) return 'Please enter your WhatsApp number'
-  const digitsOnly = trimmed.replace(/\D/g, '')
-  if (digitsOnly.length !== 10) return 'Phone number must have exactly 10 digits'
-  return 'Please enter a valid WhatsApp number'
-})
-
-async function handleSubmit() {
-  submitted.value = true
-  error.value = ''
-
-  if (contactType.value === 'email') {
-    if (!email.value.trim()) return
-    if (!isEmailValid.value) return
-  }
-
-  if (contactType.value === 'whatsapp') {
-    if (!whatsapp.value.trim()) return
-    if (!isWhatsAppValid.value) return
-  }
-
-  loading.value = true
-  try {
-    const response = await $fetch('/api/waitlist', {
-      method: 'POST',
-      body: {
-        channel: contactType.value,
-        value: contactType.value === 'email' ? email.value.trim() : whatsapp.value.trim(),
-      },
-    })
-
-    console.log(response)
-
-    success.value = true
-    submitted.value = false
-    email.value = ''
-    whatsapp.value = ''
-  } catch (e: unknown) {
-    const err = e as { data?: { message?: string }; statusMessage?: string }
-    error.value = err.data?.message ?? err.statusMessage ?? 'Something went wrong. Please try again.'
-  } finally {
-    loading.value = false
-  }
-}
+const demoName = ref('')
+const demoEmail = ref('')
+const demoPhone = ref('')
+const demoError = ref('')
+const demoMessage = ref('')
 </script>
 
-<style>
-*{
+<style lang="scss">
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Playfair Display", serif;
 }
+</style>
 
-.app {
+<style lang="scss" scoped>
+.showcase {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+  padding: 3rem 2rem;
+  background: $brand-bg;
+  font-family: $font-body;
 
-.waitlist {
-  flex: 1;
-  display: flex;
-flex-direction: column;
-gap: 2rem;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1.5rem;
-  background: linear-gradient(180deg, #fff5f6 0%, #ffeef1 50%, #fce7ea 100%);
-}
-
-.waitlist-card {
-  width: 100%;
-  max-width: 26rem;
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-.waitlist-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0 0 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.waitlist-subtitle {
-  font-size: 0.9375rem;
-  color: #6b7280;
-  line-height: 1.5;
-  margin: 0 0 1.75rem;
-}
-
-.waitlist-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-type {
-  display: flex;
-  gap: 1rem;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  font-size: 0.9375rem;
-  color: #374151;
-  user-select: none;
-}
-
-img{
-  height: 5rem;
-}
-
-.radio-input {
-  width: 1rem;
-  height: 1rem;
-  accent-color: #c97b84;
-}
-
-.radio-custom {
-  font-weight: 500;
-}
-
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  background: white;
-  color: #1f2937;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;
-}
-
-.input::placeholder {
-  color: #9ca3af;
-}
-
-.input:hover {
-  border-color: #d1d5db;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #c97b84;
-  box-shadow: 0 0 0 3px rgba(201, 123, 132, 0.2);
-}
-
-.input-error {
-  border-color: #ef4444;
-}
-
-.input-error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-}
-
-.error-msg {
-  font-size: 0.8125rem;
-  color: #ef4444;
-  margin: 0;
-}
-
-.submit-btn {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #c97b84 0%, #b86b74 100%);
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.2s;
-  margin-top: 0.25rem;
-}
-
-.submit-btn:hover {
-  box-shadow: 0 4px 12px rgba(201, 123, 132, 0.4);
-  transform: translateY(-1px);
-}
-
-.submit-btn:active {
-  transform: translateY(0);
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.form-wrap {
-  min-height: 12rem;
-}
-
-.success-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1rem 0;
-  min-height: 14rem;
-}
-
-.success-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  color: white;
-  font-size: 1.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-  flex-shrink: 0;
-}
-
-.success-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0 0 0.75rem;
-  letter-spacing: -0.02em;
-}
-
-.success-msg {
-  font-size: 0.9375rem;
-  color: #059669;
-  font-weight: 500;
-  margin: 0;
-  line-height: 1.5;
-  max-width: 22rem;
-}
-
-/* Card swap transition */
-.card-swap-enter-active,
-.card-swap-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.card-swap-leave-to {
-  opacity: 0;
-  transform: scale(0.96) translateY(-8px);
-}
-
-.card-swap-enter-from {
-  opacity: 0;
-  transform: scale(0.96) translateY(8px);
-}
-
-@media (max-width: 480px) {
-  .waitlist {
-    padding: 1.5rem 1rem;
+  &__title {
+    font-family: $font-display;
+    font-size: 2.25rem;
+    color: $text-primary;
+    margin-bottom: 2.5rem;
+    text-align: center;
   }
 
-  .waitlist-card {
-    padding: 1.5rem;
+  &__section {
+    max-width: 48rem;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
   }
 
-  .waitlist-title {
+  &__heading {
+    font-family: $font-display;
     font-size: 1.5rem;
+    color: $text-primary;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.0625rem solid $border;
   }
 
-  .waitlist-subtitle {
-    font-size: 0.875rem;
+  &__subheading {
+    font-family: $font-body;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-secondary;
+    margin: 1.25rem 0 0.75rem;
   }
 
-  .contact-type {
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__grid {
+    display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
+    max-width: 24rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // --- typography samples ---
+
+  &__font-display {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  &__font-body {
+    font-family: $font-body;
+    font-size: 1rem;
+    color: $text-secondary;
+    margin-bottom: 0.5rem;
+  }
+
+  &__font-cursive {
+    font-family: $font-cursive;
+    font-size: 1.75rem;
+    color: $brand-red;
+  }
+
+  // --- color swatches ---
+
+  &__swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 8rem;
+    height: 5rem;
+    border-radius: 0.75rem;
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: 500;
+
+    &--red {
+      background: $brand-red;
+      color: #fff;
+    }
+
+    &--red-dark {
+      background: $brand-red-dark;
+      color: #fff;
+    }
+
+    &--gold {
+      background: $brand-gold;
+      color: $text-primary;
+    }
   }
 }
 </style>
