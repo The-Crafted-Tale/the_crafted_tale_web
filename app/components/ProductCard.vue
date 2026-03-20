@@ -23,7 +23,7 @@ import placeholderProduct from "~/assets/images/placeholder-product.svg"
 
 const props = defineProps<{ product: Product }>()
 
-const imgSrc = ref(props.product.images[0])
+const imgSrc = ref(props.product.images[0] || placeholderProduct)
 
 function onImgError() {
   imgSrc.value = placeholderProduct

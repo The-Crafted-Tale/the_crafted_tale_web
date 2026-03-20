@@ -1,20 +1,27 @@
 <template>
   <div class="gallery">
     <div class="gallery__main">
-      <NuxtImg :src="images[activeIndex] || '/placeholder.svg'" :alt="alt" class="gallery__main-image" />
+      <img v-if="failedImages.has(activeIndex) || !images[activeIndex]" :src="placeholderProduct" :alt="alt"
+        class="gallery__main-image gallery__main-image--placeholder">
+      <NuxtImg v-else :src="images[activeIndex]" :alt="alt" class="gallery__main-image"
+        @error="onImageError(activeIndex)" />
     </div>
 
     <div v-if="images.length > 1" class="gallery__thumbs">
       <button v-for="(src, index) in images" :key="index"
         :class="['gallery__thumb', { 'gallery__thumb--active': index === activeIndex }]"
         :aria-label="`View image ${index + 1}`" type="button" @click="activeIndex = index">
-        <NuxtImg :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" />
+        <img v-if="failedImages.has(index) || !src" :src="placeholderProduct" :alt="`${alt} thumbnail ${index + 1}`"
+          class="gallery__thumb-placeholder">
+        <NuxtImg v-else :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" @error="onImageError(index)" />
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import placeholderProduct from "~/assets/images/placeholder-product.svg"
+
 interface Props {
   images: string[]
   alt?: string
@@ -25,6 +32,11 @@ withDefaults(defineProps<Props>(), {
 })
 
 const activeIndex = ref(0)
+const failedImages = ref(new Set<number>())
+
+function onImageError(index: number) {
+  failedImages.value = new Set([...failedImages.value, index])
+}
 </script>
 
 <style lang="scss" scoped>
@@ -49,6 +61,11 @@ const activeIndex = ref(0)
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    &--placeholder {
+      object-fit: contain;
+      padding: 2rem;
+    }
   }
 
   &__thumbs {
@@ -79,11 +96,17 @@ const activeIndex = ref(0)
       border-color 0.2s ease,
       opacity 0.2s ease;
 
-    img {
+    img,
+    :deep(img) {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .gallery__thumb-placeholder {
+      object-fit: contain;
+      padding: 0.375rem;
     }
 
     &:hover {
