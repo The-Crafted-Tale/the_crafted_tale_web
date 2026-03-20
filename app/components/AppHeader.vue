@@ -1,5 +1,5 @@
 <template>
-  <div class="header-wrap">
+  <div class="header-wrap" :class="{ 'header-wrap--scrolled': scrolled }">
     <div class="announcement-bar">
       <span class="announcement-bar__text">
         <Icon name="mdi:heart" size="0.875rem" />
@@ -51,6 +51,17 @@
 <script setup lang="ts">
 const route = useRoute()
 const drawerOpen = ref(false)
+const scrolled = ref(false)
+
+onMounted(() => {
+  const onScroll = () => {
+    scrolled.value = window.scrollY > 40
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true })
+
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
+})
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -70,10 +81,26 @@ watch(() => route.path, () => {
 </script>
 
 <style lang="scss" scoped>
+.header-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  &--scrolled .announcement-bar {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+  }
+}
+
 .announcement-bar {
   background: $brand-maroon;
   padding: 0.5rem 1rem;
   text-align: center;
+  max-height: 3rem;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
 
   &__text {
     font-family: $font-body;
@@ -92,9 +119,6 @@ watch(() => route.path, () => {
 }
 
 .app-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
   background: $brand-crimson;
   box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.2);
 
@@ -136,24 +160,46 @@ watch(() => route.path, () => {
   }
 
   &__link {
+    position: relative;
     font-family: $font-body;
     font-size: 0.9375rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     padding: 0.5rem 0.875rem;
-    border-radius: 0.5rem;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color 0.25s ease;
     letter-spacing: 0.01em;
 
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0.125rem;
+      left: 0.875rem;
+      right: 0.875rem;
+      height: 2px;
+      background: $brand-gold-light;
+      border-radius: 1px;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
     &:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
+      color: $brand-gold-light;
+
+      &::after {
+        transform: scaleX(1);
+      }
     }
 
     &--active {
       color: $brand-gold;
       font-weight: 600;
+
+      &::after {
+        transform: scaleX(1);
+        background: $brand-gold;
+      }
     }
   }
 
@@ -227,17 +273,15 @@ watch(() => route.path, () => {
     text-decoration: none;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color 0.25s ease;
 
     &:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
+      color: $brand-gold-light;
     }
 
     &--active {
       color: $brand-gold;
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.08);
     }
   }
 }
