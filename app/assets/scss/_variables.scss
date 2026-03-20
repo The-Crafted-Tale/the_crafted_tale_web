@@ -1,11 +1,19 @@
 // ---- Brand ----
-$brand-red: #d02953;
-$brand-red-dark: #8e0026;
-$brand-gold: #e6d677;
+$brand-red: #c62d5a;
+$brand-red-dark: #8b1a3a;
+$brand-red-deeper: #5d0f28;
+$brand-gold: #d4a843;
+$brand-gold-light: #e8c96a;
+$brand-rose: #d4366a;
 
 $brand-bg: #fff8f9;
 $brand-bg-mid: #ffeef1;
 $brand-bg-deep: #fce0e5;
+$brand-bg-blush: #fdf2f2;
+
+$brand-crimson: #8b1a3a;
+$brand-crimson-dark: #5d0f28;
+$brand-maroon: #4a0d20;
 
 // ---- Text ----
 $text-primary: #1f2937;
@@ -34,11 +42,35 @@ $bp-mobile: 480px;
 $bp-tablet: 768px;
 $bp-desktop: 1024px;
 
-@mixin mobile { @media (max-width: $bp-mobile) { @content; } }
-@mixin tablet-down { @media (max-width: $bp-tablet) { @content; } }
-@mixin desktop-down { @media (max-width: $bp-desktop) { @content; } }
-@mixin tablet-up { @media (min-width: ($bp-tablet + 1px)) { @content; } }
-@mixin desktop-up { @media (min-width: ($bp-desktop + 1px)) { @content; } }
+@mixin mobile {
+    @media (max-width: $bp-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet-down {
+    @media (max-width: $bp-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop-down {
+    @media (max-width: $bp-desktop) {
+        @content;
+    }
+}
+
+@mixin tablet-up {
+    @media (min-width: ($bp-tablet + 1px)) {
+        @content;
+    }
+}
+
+@mixin desktop-up {
+    @media (min-width: ($bp-desktop + 1px)) {
+        @content;
+    }
+}
 
 // ---- Fonts ----
 $font-display: "Playfair Display", serif;

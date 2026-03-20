@@ -1,12 +1,16 @@
 <template>
   <NuxtLink :to="`/products/${product.slug}`" class="product-card">
     <div class="product-card__image-wrap">
-      <img :src="product.images?.[0] || '/placeholder.svg'" :alt="product.name" class="product-card__image"
-        loading="lazy" />
+      <img :src="product.images[0]" :alt="product.name" class="product-card__image" loading="lazy" />
+      <CategoryBadge :category="product.category" class="product-card__badge" />
+      <div class="product-card__overlay">
+        <span class="product-card__overlay-text">
+          <Icon name="mdi:heart-outline" size="1rem" />
+          View Details
+        </span>
+      </div>
     </div>
-
     <div class="product-card__body">
-      <CategoryBadge :category="product.category" />
       <h3 class="product-card__name">{{ product.name }}</h3>
       <PriceTag :amount="product.price" />
     </div>
@@ -22,9 +26,7 @@ interface Product {
   images: string[]
 }
 
-defineProps<{
-  product: Product
-}>()
+defineProps<{ product: Product }>()
 </script>
 
 <style lang="scss" scoped>
@@ -33,15 +35,15 @@ defineProps<{
   flex-direction: column;
   background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.125rem 0.75rem rgba($brand-red-dark, 0.08);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.375rem);
+    box-shadow: 0 0.75rem 2rem rgba($brand-red-dark, 0.15);
   }
 
   &__image-wrap {
@@ -49,7 +51,7 @@ defineProps<{
     width: 100%;
     padding-top: 100%;
     overflow: hidden;
-    background: $brand-bg;
+    background: $brand-bg-blush;
   }
 
   &__image {
@@ -58,11 +60,52 @@ defineProps<{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
   }
 
   &:hover &__image {
-    transform: scale(1.05);
+    transform: scale(1.08);
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba($brand-crimson-dark, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  &:hover &__overlay {
+    opacity: 1;
+  }
+
+  &__overlay-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-family: $font-body;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.625rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 2rem;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
   }
 
   &__body {
@@ -74,9 +117,10 @@ defineProps<{
 
   &__name {
     font-family: $font-display;
+    font-style: italic;
     font-size: 1.05rem;
     font-weight: 600;
-    color: $text-primary;
+    color: $brand-crimson;
     line-height: 1.3;
     margin: 0;
   }

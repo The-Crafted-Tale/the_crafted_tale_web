@@ -15,7 +15,7 @@
 import { resolveComponent } from 'vue'
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'gold'
   size?: 'sm' | 'md' | 'lg'
   href?: string
   disabled?: boolean
@@ -43,11 +43,12 @@ const isExternal = computed(() =>
   font-family: $font-body;
   font-weight: 600;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   cursor: pointer;
   text-decoration: none;
   transition: transform 0.15s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 
   &:disabled,
   &[disabled] {
@@ -57,15 +58,14 @@ const isExternal = computed(() =>
     box-shadow: none;
   }
 
-  // --- variants ---
-
   &--primary {
     color: #fff;
-    background: linear-gradient(135deg, $brand-red 0%, $brand-red-dark 100%);
+    background: linear-gradient(135deg, $brand-rose 0%, $brand-red-dark 100%);
+    box-shadow: 0 0.125rem 0.5rem rgba($brand-red-dark, 0.3);
 
     &:hover:not(:disabled) {
-      box-shadow: 0 0.25rem 0.75rem rgba($brand-red, 0.4);
-      transform: translateY(-0.0625rem);
+      box-shadow: 0 0.375rem 1.25rem rgba($brand-red-dark, 0.45);
+      transform: translateY(-2px);
     }
 
     &:active:not(:disabled) {
@@ -74,13 +74,14 @@ const isExternal = computed(() =>
   }
 
   &--secondary {
-    color: $brand-red;
+    color: #fff;
     background: transparent;
-    border: 0.09375rem solid $brand-red;
+    border: 2px solid rgba(255, 255, 255, 0.7);
 
     &:hover:not(:disabled) {
-      background: rgba($brand-red, 0.08);
-      transform: translateY(-0.0625rem);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #fff;
+      transform: translateY(-2px);
     }
 
     &:active:not(:disabled) {
@@ -89,32 +90,43 @@ const isExternal = computed(() =>
   }
 
   &--ghost {
-    color: $brand-red;
+    color: $brand-rose;
     background: transparent;
 
     &:hover:not(:disabled) {
-      background: rgba($brand-red, 0.08);
+      background: rgba($brand-rose, 0.08);
     }
   }
 
-  // --- sizes ---
+  &--gold {
+    color: $brand-crimson-dark;
+    background: linear-gradient(135deg, $brand-gold-light 0%, $brand-gold 100%);
+    box-shadow: 0 0.125rem 0.5rem rgba($brand-gold, 0.3);
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 0.375rem 1.25rem rgba($brand-gold, 0.45);
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
 
   &--sm {
     font-size: 0.8125rem;
-    padding: 0.375rem 0.875rem;
+    padding: 0.5rem 1.25rem;
   }
 
   &--md {
     font-size: 0.9375rem;
-    padding: 0.625rem 1.25rem;
+    padding: 0.75rem 1.75rem;
   }
 
   &--lg {
     font-size: 1.0625rem;
-    padding: 0.75rem 1.75rem;
+    padding: 0.875rem 2.25rem;
   }
-
-  // --- spinner ---
 
   &__spinner {
     width: 1em;

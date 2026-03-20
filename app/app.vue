@@ -9,16 +9,6 @@
   </div>
 </template>
 
-<style lang="scss">
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-</style>
-
 <style lang="scss" scoped>
 .app-shell {
   display: flex;
