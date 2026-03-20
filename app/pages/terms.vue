@@ -11,9 +11,18 @@
 <script setup lang="ts">
 import type { LegalSection } from '~/components/LegalPageBody.vue'
 
+const url = useRequestURL()
+
 useSeoMeta({
   title: 'Terms of Service | The Crafted Tale',
   description:
+    'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
+  ogTitle: 'Terms of Service | The Crafted Tale',
+  ogDescription:
+    'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
+  ogUrl: url.href,
+  twitterTitle: 'Terms of Service | The Crafted Tale',
+  twitterDescription:
     'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
 })
 

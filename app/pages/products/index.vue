@@ -38,9 +38,18 @@
 <script setup lang="ts">
 import type { ProductCategory } from '~/types'
 
+const url = useRequestURL()
+
 useSeoMeta({
   title: 'Products | The Crafted Tale',
   description:
+    'Browse our handcrafted collection of gifts, keepsakes, and personalized creations. Custom, semi-custom, and ready-made options available.',
+  ogTitle: 'Products | The Crafted Tale',
+  ogDescription:
+    'Browse our handcrafted collection of gifts, keepsakes, and personalized creations. Custom, semi-custom, and ready-made options available.',
+  ogUrl: url.href,
+  twitterTitle: 'Products | The Crafted Tale',
+  twitterDescription:
     'Browse our handcrafted collection of gifts, keepsakes, and personalized creations. Custom, semi-custom, and ready-made options available.',
 })
 

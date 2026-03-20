@@ -2,7 +2,17 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/icon", "@nuxt/eslint", "@nuxt/image", "@vercel/analytics", "@vercel/speed-insights"],
+  modules: [
+    "@nuxt/icon",
+    "@nuxt/eslint",
+    "@nuxt/image",
+    "@nuxtjs/sitemap",
+    "@vercel/analytics",
+    "@vercel/speed-insights",
+  ],
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || "https://thecraftedtale.com",
+  },
   image: {
     domains: ["images.unsplash.com"],
   },
@@ -27,6 +37,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: { lang: "en" },
       title: "The Crafted Tale",
       meta: [
         { name: "description", content: "The Crafted Tale - Your tale, to your loved ones" },

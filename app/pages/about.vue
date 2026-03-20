@@ -136,9 +136,18 @@ import placeholderStory from '~/assets/images/placeholder-story.svg'
 
 const contact = useContactInfo()
 
+const url = useRequestURL()
+
 useSeoMeta({
   title: 'About | The Crafted Tale',
   description:
+    'The Crafted Tale creates bespoke handmade gifts for every occasion. Learn about our story, values, and the hands behind the craft.',
+  ogTitle: 'About | The Crafted Tale',
+  ogDescription:
+    'The Crafted Tale creates bespoke handmade gifts for every occasion. Learn about our story, values, and the hands behind the craft.',
+  ogUrl: url.href,
+  twitterTitle: 'About | The Crafted Tale',
+  twitterDescription:
     'The Crafted Tale creates bespoke handmade gifts for every occasion. Learn about our story, values, and the hands behind the craft.',
 })
 

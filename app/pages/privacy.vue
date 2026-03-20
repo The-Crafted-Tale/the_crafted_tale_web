@@ -11,9 +11,18 @@
 <script setup lang="ts">
 import type { LegalSection } from '~/components/LegalPageBody.vue'
 
+const url = useRequestURL()
+
 useSeoMeta({
   title: 'Privacy Policy | The Crafted Tale',
   description:
+    'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
+  ogTitle: 'Privacy Policy | The Crafted Tale',
+  ogDescription:
+    'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
+  ogUrl: url.href,
+  twitterTitle: 'Privacy Policy | The Crafted Tale',
+  twitterDescription:
     'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
 })
 

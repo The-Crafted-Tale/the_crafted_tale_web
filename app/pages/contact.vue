@@ -103,9 +103,18 @@
 <script setup lang="ts">
 const contact = useContactInfo()
 
+const url = useRequestURL()
+
 useSeoMeta({
   title: 'Contact | The Crafted Tale',
   description:
+    'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
+  ogTitle: 'Contact | The Crafted Tale',
+  ogDescription:
+    'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
+  ogUrl: url.href,
+  twitterTitle: 'Contact | The Crafted Tale',
+  twitterDescription:
     'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
 })
 
@@ -145,6 +154,7 @@ async function handleFormSubmit(payload: {
 
 <style lang="scss" scoped>
 .contact-page {
+
   // ---- Content ----
   &__content {
     padding: 4rem 1.5rem 5rem;

@@ -79,12 +79,75 @@ if (!product.value) {
   })
 }
 
+const url = useRequestURL()
+const productDescription =
+  product.value.description ??
+  `Explore ${product.value.name} — a handcrafted creation from The Crafted Tale.`
+
 useSeoMeta({
   title: `${product.value.name} | The Crafted Tale`,
-  description:
-    product.value.description ??
-    `Explore ${product.value.name} — a handcrafted creation from The Crafted Tale.`,
+  description: productDescription,
+  ogTitle: `${product.value.name} | The Crafted Tale`,
+  ogDescription: productDescription,
+  ogUrl: url.href,
   ogImage: product.value.images[0],
+  twitterTitle: `${product.value.name} | The Crafted Tale`,
+  twitterDescription: productDescription,
+  twitterImage: product.value.images[0],
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': product.value.name,
+        'description': productDescription,
+        'image': product.value.images,
+        'url': url.href,
+        'brand': {
+          '@type': 'Brand',
+          'name': 'The Crafted Tale',
+        },
+        'offers': {
+          '@type': 'Offer',
+          'price': product.value.price,
+          'priceCurrency': 'INR',
+          'availability': 'https://schema.org/InStock',
+          'url': url.href,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': url.origin,
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Products',
+            'item': `${url.origin}/products`,
+          },
+          {
+            '@type': 'ListItem',
+            'position': 3,
+            'name': product.value.name,
+            'item': url.href,
+          },
+        ],
+      }),
+    },
+  ],
 })
 
 const contact = useContactInfo()

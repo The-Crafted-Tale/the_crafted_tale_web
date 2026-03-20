@@ -10,6 +10,25 @@
   </div>
 </template>
 
+<script setup lang="ts">
+const url = useRequestURL()
+const route = useRoute()
+
+useHead({
+  link: [
+    { rel: 'canonical', href: computed(() => `${url.origin}${route.path}`) },
+  ],
+})
+
+useSeoMeta({
+  ogSiteName: 'The Crafted Tale',
+  ogType: 'website',
+  ogImage: `${url.origin}/og-image.png`,
+  twitterCard: 'summary_large_image',
+  twitterImage: `${url.origin}/og-image.png`,
+})
+</script>
+
 <style lang="scss" scoped>
 .skip-link {
   position: absolute;

@@ -8,36 +8,14 @@
         Say
       </h2>
       <div class="testimonials__grid">
-        <div
-          v-for="review in reviews"
-          :key="review.name"
-          class="review-card"
-        >
-          <div
-            class="review-card__stars"
-            :aria-label="`${review.rating} out of 5 stars`"
-          >
-            <Icon
-              v-for="n in 5"
-              :key="n"
-              name="mdi:star"
-              size="1rem"
-              class="review-card__star"
-              aria-hidden="true"
-            />
+        <div v-for="review in reviews" :key="review.name" class="review-card">
+          <div class="review-card__stars" role="img" :aria-label="`${review.rating} out of 5 stars`">
+            <Icon v-for="n in 5" :key="n" name="mdi:star" size="1rem" class="review-card__star" aria-hidden="true" />
           </div>
-          <Icon
-            name="mdi:format-quote-open"
-            size="2rem"
-            class="review-card__quote-icon"
-            aria-hidden="true"
-          />
+          <Icon name="mdi:format-quote-open" size="2rem" class="review-card__quote-icon" aria-hidden="true" />
           <p class="review-card__text">{{ review.text }}</p>
           <div class="review-card__author">
-            <div
-              class="review-card__avatar"
-              aria-hidden="true"
-            >
+            <div class="review-card__avatar" aria-hidden="true">
               {{ review.name[0] }}
             </div>
             <div>

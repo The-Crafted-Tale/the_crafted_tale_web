@@ -10,7 +10,7 @@
         </div>
 
         <div class="app-footer__links-col">
-          <h4 class="app-footer__col-title">Quick Links</h4>
+          <h2 class="app-footer__col-title">Quick Links</h2>
           <nav class="app-footer__nav" aria-label="Footer navigation">
             <NuxtLink to="/" class="app-footer__link">Home</NuxtLink>
             <NuxtLink to="/products" class="app-footer__link">Products</NuxtLink>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="app-footer__contact-col">
-          <h4 class="app-footer__col-title">Contact Us</h4>
+          <h2 class="app-footer__col-title">Contact Us</h2>
           <div class="app-footer__contact-items">
             <a :href="contact.mailtoUrl" class="app-footer__contact-item">
               <Icon name="mdi:email-outline" size="1rem" />
@@ -34,7 +34,7 @@
         </div>
 
         <div class="app-footer__newsletter-col">
-          <h4 class="app-footer__col-title">Stay Updated</h4>
+          <h2 class="app-footer__col-title">Stay Updated</h2>
           <p class="app-footer__newsletter-desc">Get the latest on new creations, offers, and heartfelt stories.</p>
           <form class="app-footer__newsletter" @submit.prevent="handleSubscribe">
             <input v-model="newsletterEmail" type="email" placeholder="Your email" class="app-footer__newsletter-input"
