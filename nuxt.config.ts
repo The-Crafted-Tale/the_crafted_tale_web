@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const gtagId = process.env.NUXT_PUBLIC_GTAG_ID || "G-PS6EDH7PN7"
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -19,6 +21,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     supabaseUrl: process.env.NUXT_SUPABASE_URL,
     supabaseServiceRoleKey: process.env.NUXT_SUPABASE_SERVICE_ROLE_KEY,
+    public: {
+      /** Google Analytics 4 measurement ID (override with NUXT_PUBLIC_GTAG_ID) */
+      gtagId,
+    },
   },
   routeRules: {
     "/": { isr: 60 },
@@ -40,8 +46,18 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: "en" },
       title: "The Crafted Tale",
       meta: [
+        { "http-equiv": "content-language", content: "en" },
         { name: "description", content: "The Crafted Tale - Your tale, to your loved ones" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+      ],
+      script: [
+        {
+          src: `https://www.googletagmanager.com/gtag/js?id=${gtagId}`,
+          async: true,
+        },
+        {
+          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gtagId}');`,
+        },
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
