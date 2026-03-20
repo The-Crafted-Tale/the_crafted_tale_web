@@ -9,22 +9,11 @@
       </h1>
       <p class="hero__desc">Handmade with love, delivered with care</p>
       <div class="hero__actions">
-        <AppButton
-          variant="gold"
-          size="lg"
-          href="/products"
-        >
-          <Icon
-            name="mdi:sparkles"
-            size="1.125rem"
-          />
+        <AppButton variant="gold" size="lg" href="/products">
+          <Icon name="mdi:sparkles" size="1.125rem" />
           Explore Our Collection
         </AppButton>
-        <AppButton
-          variant="secondary"
-          size="lg"
-          href="/contact"
-        >
+        <AppButton variant="secondary" size="lg" href="/contact">
           Get in Touch
         </AppButton>
       </div>
@@ -39,12 +28,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    ellipse at center,
-    $brand-crimson 0%,
-    $brand-crimson-dark 50%,
-    $brand-maroon 100%
-  );
+  background: radial-gradient(ellipse at center,
+      $brand-crimson 0%,
+      $brand-crimson-dark 50%,
+      $brand-maroon 100%);
   overflow: hidden;
 
   &__content {
