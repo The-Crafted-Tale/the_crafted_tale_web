@@ -7,8 +7,13 @@ export default defineNuxtConfig({
     domains: ["images.unsplash.com"],
   },
   runtimeConfig: {
-    supabaseUrl: "",
-    supabaseServiceRoleKey: "",
+    supabaseUrl: process.env.NUXT_SUPABASE_URL,
+    supabaseServiceRoleKey: process.env.NUXT_SUPABASE_SERVICE_ROLE_KEY,
+  },
+  routeRules: {
+    "/": { isr: 60 },
+    "/products": { isr: 60 },
+    "/products/**": { isr: 60 },
   },
   css: ["~/assets/scss/main.scss"],
   vite: {
