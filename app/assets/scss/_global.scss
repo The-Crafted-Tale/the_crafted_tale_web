@@ -11,7 +11,7 @@
 html {
   scroll-behavior: smooth;
   background: $brand-maroon;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -20,7 +20,7 @@ body {
   background: $brand-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
