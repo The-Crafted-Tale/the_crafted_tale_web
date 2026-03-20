@@ -1,0 +1,78 @@
+// ---- Brand ----
+$brand-red: #c62d5a;
+$brand-red-dark: #8b1a3a;
+$brand-red-deeper: #5d0f28;
+$brand-gold: #d4a843;
+$brand-gold-light: #e8c96a;
+$brand-rose: #d4366a;
+
+$brand-bg: #fff8f9;
+$brand-bg-mid: #ffeef1;
+$brand-bg-deep: #fce0e5;
+$brand-bg-blush: #fdf2f2;
+
+$brand-crimson: #8b1a3a;
+$brand-crimson-dark: #5d0f28;
+$brand-maroon: #4a0d20;
+
+// ---- Text ----
+$text-primary: #1f2937;
+$text-secondary: #374151;
+$text-muted: #6b7280;
+$text-placeholder: #9ca3af;
+
+// ---- Borders ----
+$border: #e5e7eb;
+$border-hover: #d1d5db;
+
+// ---- Semantic ----
+$error: #ef4444;
+$success: #059669;
+
+// ---- Category badges ----
+$badge-custom-fg: #92400e;
+$badge-custom-bg: #fef3c7;
+$badge-semi-custom-fg: #5b21b6;
+$badge-semi-custom-bg: #ede9fe;
+$badge-ready-made-fg: #065f46;
+$badge-ready-made-bg: #d1fae5;
+
+// ---- Breakpoints ----
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: $bp-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-down {
+  @media (max-width: $bp-desktop) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: ($bp-tablet + 1px)) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: ($bp-desktop + 1px)) {
+    @content;
+  }
+}
+
+// ---- Fonts ----
+$font-display: 'Playfair Display', serif;
+$font-body: 'Poppins', sans-serif;
+$font-cursive: 'Great Vibes', cursive;

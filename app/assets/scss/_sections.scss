@@ -1,0 +1,48 @@
+@use 'variables' as *;
+
+.section-label {
+  display: block;
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $brand-gold;
+  margin-bottom: 0.75rem;
+
+  &--light {
+    color: $brand-gold-light;
+  }
+}
+
+.section-title {
+  font-family: $font-display;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: $text-primary;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+
+  &--light {
+    color: #fff;
+  }
+
+  &__accent {
+    font-family: $font-cursive;
+    font-weight: 400;
+    color: $brand-gold;
+    font-size: 1.15em;
+  }
+
+  @include mobile {
+    font-size: 1.75rem;
+  }
+}
+
+.section-desc {
+  font-size: 1.0625rem;
+  color: $text-muted;
+  max-width: 36rem;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
