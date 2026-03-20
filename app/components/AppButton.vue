@@ -1,7 +1,8 @@
 <template>
-  <component :is="href ? NuxtLink : 'button'" :to="href || undefined" :href="href && isExternal ? href : undefined"
-    :target="href && isExternal ? '_blank' : undefined" :rel="href && isExternal ? 'noopener noreferrer' : undefined"
-    :disabled="disabled || loading || undefined" :class="['app-btn', `app-btn--${variant}`, `app-btn--${size}`]">
+  <component :is="href ? NuxtLink : 'button'" :to="href && !isExternal ? href : undefined"
+    :href="href && isExternal ? href : undefined" :target="href && isExternal ? '_blank' : undefined"
+    :rel="href && isExternal ? 'noopener noreferrer' : undefined" :disabled="disabled || loading || undefined"
+    :class="['app-btn', `app-btn--${variant}`, `app-btn--${size}`]">
     <span v-if="loading" class="app-btn__spinner" aria-hidden="true" />
 
     <slot />
