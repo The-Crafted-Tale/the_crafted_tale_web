@@ -39,7 +39,7 @@
           <form class="app-footer__newsletter" @submit.prevent="handleSubscribe">
             <input v-model="newsletterEmail" type="email" placeholder="Your email" class="app-footer__newsletter-input"
               aria-label="Email for newsletter"
-              :disabled="newsletterState === 'loading' || newsletterState === 'success'" />
+              :disabled="newsletterState === 'loading' || newsletterState === 'success'">
             <button type="submit" class="app-footer__newsletter-btn"
               :disabled="newsletterState === 'loading' || newsletterState === 'success'">
               {{ newsletterButtonText }}
