@@ -19,15 +19,8 @@
       <div class="about-page__story-inner">
         <div class="about-page__story-image-side">
           <div class="about-page__story-image-wrap">
-            <img
-              :src="storyImgSrc"
-              alt="Artisan workspace with craft supplies"
-              class="about-page__story-image"
-              loading="lazy"
-              width="560"
-              height="640"
-              @error="onStoryImgError"
-            >
+            <img :src="storyImgSrc" alt="Artisan workspace with craft supplies" class="about-page__story-image"
+              loading="lazy" width="560" height="640" @error="onStoryImgError">
             <div class="about-page__story-image-overlay">
               <p class="about-page__story-image-quote">
                 Where every piece begins
@@ -72,16 +65,9 @@
           <span class="section-title__accent">Values</span>
         </h2>
         <div class="about-page__values-grid">
-          <div
-            v-for="value in values"
-            :key="value.title"
-            class="value-card"
-          >
+          <div v-for="value in values" :key="value.title" class="value-card">
             <div class="value-card__icon-wrap">
-              <Icon
-                :name="value.icon"
-                size="1.75rem"
-              />
+              <Icon :name="value.icon" size="1.75rem" />
             </div>
             <h3 class="value-card__title">{{ value.title }}</h3>
             <p class="value-card__desc">{{ value.desc }}</p>
@@ -109,31 +95,19 @@
         </p>
         <div class="about-page__maker-badges">
           <span class="about-page__maker-badge">
-            <Icon
-              name="mdi:hand-heart"
-              size="1.125rem"
-            />
+            <Icon name="mdi:hand-heart" size="1.125rem" />
             100% Handmade
           </span>
           <span class="about-page__maker-badge">
-            <Icon
-              name="mdi:leaf"
-              size="1.125rem"
-            />
+            <Icon name="mdi:leaf" size="1.125rem" />
             Eco-Friendly Materials
           </span>
           <span class="about-page__maker-badge">
-            <Icon
-              name="mdi:heart"
-              size="1.125rem"
-            />
+            <Icon name="mdi:heart" size="1.125rem" />
             Made with Love
           </span>
           <span class="about-page__maker-badge">
-            <Icon
-              name="mdi:palette-outline"
-              size="1.125rem"
-            />
+            <Icon name="mdi:palette-outline" size="1.125rem" />
             Fully Customizable
           </span>
         </div>
@@ -149,36 +123,17 @@
           Browse our collection or get in touch for something truly bespoke.
         </p>
         <div class="about-page__cta-actions">
-          <AppButton
-            variant="primary"
-            size="lg"
-            href="/products"
-          >
-            <Icon
-              name="mdi:sparkles"
-              size="1.125rem"
-            />
+          <AppButton variant="primary" size="lg" href="/products">
+            <Icon name="mdi:sparkles" size="1.125rem" />
             Explore Collection
           </AppButton>
-          <AppButton
-            variant="ghost"
-            size="lg"
-            href="/contact"
-          >
+          <AppButton variant="ghost" size="lg" href="/contact">
             Get in Touch
           </AppButton>
         </div>
-        <a
-          href="https://www.instagram.com/the_crafted_tale/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="about-page__instagram"
-          aria-label="Follow us on Instagram"
-        >
-          <Icon
-            name="mdi:instagram"
-            size="1.25rem"
-          />
+        <a :href="contact.instagram" target="_blank" rel="noopener noreferrer" class="about-page__instagram"
+          aria-label="Follow us on Instagram">
+          <Icon name="mdi:instagram" size="1.25rem" />
           Follow us on Instagram
         </a>
       </div>
@@ -188,6 +143,8 @@
 
 <script setup lang="ts">
 import placeholderStory from '~/assets/images/placeholder-story.svg'
+
+const contact = useContactInfo()
 
 useSeoMeta({
   title: 'About | The Crafted Tale',
@@ -243,12 +200,10 @@ const values = [
     position: relative;
     padding: 6rem 1.5rem 4rem;
     text-align: center;
-    background: radial-gradient(
-      ellipse at center,
-      $brand-crimson 0%,
-      $brand-crimson-dark 60%,
-      $brand-maroon 100%
-    );
+    background: radial-gradient(ellipse at center,
+        $brand-crimson 0%,
+        $brand-crimson-dark 60%,
+        $brand-maroon 100%);
     overflow: hidden;
   }
 
@@ -304,11 +259,9 @@ const values = [
     left: 0;
     right: 0;
     padding: 2rem 1.5rem 1.5rem;
-    background: linear-gradient(
-      to top,
-      rgba($brand-crimson-dark, 0.85),
-      transparent
-    );
+    background: linear-gradient(to top,
+        rgba($brand-crimson-dark, 0.85),
+        transparent);
   }
 
   &__story-image-quote {
@@ -356,12 +309,10 @@ const values = [
     position: relative;
     padding: 5rem 1.5rem;
     text-align: center;
-    background: radial-gradient(
-      ellipse at center,
-      $brand-crimson 0%,
-      $brand-crimson-dark 60%,
-      $brand-maroon 100%
-    );
+    background: radial-gradient(ellipse at center,
+        $brand-crimson 0%,
+        $brand-crimson-dark 60%,
+        $brand-maroon 100%);
     overflow: hidden;
   }
 

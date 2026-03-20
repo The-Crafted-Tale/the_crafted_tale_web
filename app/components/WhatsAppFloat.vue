@@ -5,17 +5,12 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  phone?: string
-  message?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  phone: "+919494521472",
+const props = withDefaults(defineProps<{ message?: string }>(), {
   message: "Hi, I'm interested in your products!",
 })
 
-const whatsappUrl = computed(() => `https://wa.me/${props.phone}?text=${encodeURIComponent(props.message)}`)
+const contact = useContactInfo()
+const whatsappUrl = computed(() => contact.whatsappUrlWithMessage(props.message))
 </script>
 
 <style lang="scss" scoped>

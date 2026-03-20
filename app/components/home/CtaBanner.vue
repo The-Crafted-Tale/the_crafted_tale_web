@@ -25,7 +25,7 @@
         <AppButton
           variant="secondary"
           size="lg"
-          href="https://wa.me/919494521472"
+          :href="contact.whatsappUrl"
         >
           <Icon
             name="mdi:whatsapp"
@@ -37,6 +37,10 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+const contact = useContactInfo()
+</script>
 
 <style lang="scss" scoped>
 .cta-banner {

@@ -88,12 +88,11 @@ useSeoMeta({
   ogImage: product.images[0],
 })
 
-const whatsappUrl = computed(() => {
-  const text = encodeURIComponent(
-    `Hi, I'm interested in "${product.name}". Can you tell me more?`,
-  )
-  return `https://wa.me/919494521472?text=${text}`
-})
+const contact = useContactInfo()
+
+const whatsappUrl = computed(() =>
+  contact.whatsappUrlWithMessage(`Hi, I'm interested in "${product.name}". Can you tell me more?`),
+)
 
 const relatedProducts = computed(() =>
   getAllProducts(product.category)

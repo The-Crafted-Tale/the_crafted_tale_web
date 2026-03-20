@@ -46,7 +46,7 @@
             <h3 class="privacy-page__contact-title">Questions about your privacy?</h3>
             <p class="privacy-page__contact-desc">
               Reach out to us at
-              <a href="mailto:hello@thecraftedtale.shop">hello@thecraftedtale.shop</a>
+              <a :href="contact.mailtoUrl">{{ contact.email }}</a>
               or visit our
               <NuxtLink to="/contact">contact page</NuxtLink>.
             </p>
@@ -58,6 +58,8 @@
 </template>
 
 <script setup lang="ts">
+const contact = useContactInfo()
+
 useSeoMeta({
   title: 'Privacy Policy | The Crafted Tale',
   description:

@@ -46,7 +46,7 @@
             <h3 class="terms-page__contact-title">Have questions about these terms?</h3>
             <p class="terms-page__contact-desc">
               Reach out to us at
-              <a href="mailto:hello@thecraftedtale.shop">hello@thecraftedtale.shop</a>
+              <a :href="contact.mailtoUrl">{{ contact.email }}</a>
               or visit our
               <NuxtLink to="/contact">contact page</NuxtLink>.
             </p>
@@ -58,6 +58,8 @@
 </template>
 
 <script setup lang="ts">
+const contact = useContactInfo()
+
 useSeoMeta({
   title: 'Terms of Service | The Crafted Tale',
   description:

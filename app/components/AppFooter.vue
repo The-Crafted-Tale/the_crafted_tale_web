@@ -22,13 +22,13 @@
         <div class="app-footer__contact-col">
           <h4 class="app-footer__col-title">Contact Us</h4>
           <div class="app-footer__contact-items">
-            <a href="mailto:hello@thecraftedtale.shop" class="app-footer__contact-item">
+            <a :href="contact.mailtoUrl" class="app-footer__contact-item">
               <Icon name="mdi:email-outline" size="1rem" />
-              hello@thecraftedtale.shop
+              {{ contact.email }}
             </a>
-            <a href="tel:+919494521472" class="app-footer__contact-item">
+            <a :href="contact.telUrl" class="app-footer__contact-item">
               <Icon name="mdi:phone-outline" size="1rem" />
-              +91 94945 21472
+              {{ contact.phoneFormatted }}
             </a>
           </div>
         </div>
@@ -68,6 +68,7 @@
 </template>
 
 <script setup lang="ts">
+const contact = useContactInfo()
 const currentYear = new Date().getFullYear()
 
 const newsletterEmail = ref("")

@@ -18,15 +18,9 @@
     <section class="contact-page__content">
       <div class="contact-page__inner">
         <div class="contact-page__form-side">
-          <div
-            v-if="submitted"
-            class="contact-page__success"
-          >
+          <div v-if="submitted" class="contact-page__success">
             <div class="contact-page__success-icon">
-              <Icon
-                name="mdi:check-circle-outline"
-                size="3rem"
-              />
+              <Icon name="mdi:check-circle-outline" size="3rem" />
             </div>
             <h2 class="contact-page__success-title">Message Sent!</h2>
             <p class="contact-page__success-desc">
@@ -34,19 +28,13 @@
               possible.
             </p>
             <div class="contact-page__success-actions">
-              <AppButton
-                variant="primary"
-                href="/products"
-              >
+              <AppButton variant="primary" href="/products">
                 Browse Products
               </AppButton>
               <p class="contact-page__success-alt">
                 Or reach us directly on
-                <a
-                  href="https://wa.me/919494521472?text=Hi%2C%20I%20have%20a%20question!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a :href="contact.whatsappUrlWithMessage('Hi, I have a question!')" target="_blank"
+                  rel="noopener noreferrer">
                   WhatsApp
                 </a>
               </p>
@@ -57,11 +45,8 @@
             <p class="contact-page__form-desc">
               Fill in the form below and we'll respond within 24 hours.
             </p>
-            <ContactForm
-              v-model:loading="formLoading"
-              :prefill-product="prefillProductName"
-              @submit="handleFormSubmit"
-            />
+            <ContactForm v-model:loading="formLoading" :prefill-product="prefillProductName"
+              @submit="handleFormSubmit" />
           </template>
         </div>
 
@@ -71,58 +56,38 @@
 
             <div class="contact-page__info-item">
               <div class="contact-page__info-icon">
-                <Icon
-                  name="mdi:whatsapp"
-                  size="1.25rem"
-                />
+                <Icon name="mdi:whatsapp" size="1.25rem" />
               </div>
               <div>
                 <p class="contact-page__info-label">WhatsApp</p>
-                <a
-                  href="https://wa.me/919494521472"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact-page__info-value contact-page__info-value--link"
-                >
-                  +91 94945 21472
+                <a :href="contact.whatsappUrl" target="_blank" rel="noopener noreferrer"
+                  class="contact-page__info-value contact-page__info-value--link">
+                  {{ contact.phoneFormatted }}
                 </a>
               </div>
             </div>
 
             <div class="contact-page__info-item">
               <div class="contact-page__info-icon">
-                <Icon
-                  name="mdi:email-outline"
-                  size="1.25rem"
-                />
+                <Icon name="mdi:email-outline" size="1.25rem" />
               </div>
               <div>
                 <p class="contact-page__info-label">Email</p>
-                <a
-                  href="mailto:hello@thecraftedtale.shop"
-                  class="contact-page__info-value contact-page__info-value--link"
-                >
-                  hello@thecraftedtale.shop
+                <a :href="contact.mailtoUrl" class="contact-page__info-value contact-page__info-value--link">
+                  {{ contact.email }}
                 </a>
               </div>
             </div>
 
             <div class="contact-page__info-item">
               <div class="contact-page__info-icon">
-                <Icon
-                  name="mdi:instagram"
-                  size="1.25rem"
-                />
+                <Icon name="mdi:instagram" size="1.25rem" />
               </div>
               <div>
                 <p class="contact-page__info-label">Instagram</p>
-                <a
-                  href="https://www.instagram.com/the_crafted_tale/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact-page__info-value contact-page__info-value--link"
-                >
-                  @the_crafted_tale
+                <a :href="contact.instagram" target="_blank" rel="noopener noreferrer"
+                  class="contact-page__info-value contact-page__info-value--link">
+                  {{ contact.instagramHandle }}
                 </a>
               </div>
             </div>
@@ -130,10 +95,7 @@
 
           <div class="contact-page__info-card contact-page__info-card--highlight">
             <div class="contact-page__info-card-icon">
-              <Icon
-                name="mdi:clock-outline"
-                size="1.5rem"
-              />
+              <Icon name="mdi:clock-outline" size="1.5rem" />
             </div>
             <h3 class="contact-page__info-heading">Response Time</h3>
             <p class="contact-page__info-note">
@@ -148,6 +110,8 @@
 </template>
 
 <script setup lang="ts">
+const contact = useContactInfo()
+
 useSeoMeta({
   title: 'Contact | The Crafted Tale',
   description:
@@ -187,12 +151,10 @@ function handleFormSubmit(_payload: {
     position: relative;
     padding: 6rem 1.5rem 4rem;
     text-align: center;
-    background: radial-gradient(
-      ellipse at center,
-      $brand-crimson 0%,
-      $brand-crimson-dark 60%,
-      $brand-maroon 100%
-    );
+    background: radial-gradient(ellipse at center,
+        $brand-crimson 0%,
+        $brand-crimson-dark 60%,
+        $brand-maroon 100%);
     overflow: hidden;
   }
 
@@ -346,7 +308,7 @@ function handleFormSubmit(_payload: {
     gap: 0.875rem;
     align-items: flex-start;
 
-    & + & {
+    &+& {
       margin-top: 1.25rem;
       padding-top: 1.25rem;
       border-top: 1px solid $border;

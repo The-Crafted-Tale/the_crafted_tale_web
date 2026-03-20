@@ -8,32 +8,28 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  instagram?: string
-  facebook?: string
-  youtube?: string
-}>()
+const contact = useContactInfo()
 
-const socialLinks = computed(() => [
+const socialLinks = [
   {
     name: "instagram",
     label: "Instagram",
     icon: "mdi:instagram",
-    href: props.instagram || "https://instagram.com/thecraftedtale.shop",
+    href: contact.instagram,
   },
   {
     name: "facebook",
     label: "Facebook",
     icon: "mdi:facebook",
-    href: props.facebook || "https://facebook.com/thecraftedtale.shop",
+    href: contact.facebook,
   },
   {
     name: "youtube",
     label: "YouTube",
     icon: "mdi:youtube",
-    href: props.youtube || "https://youtube.com/thecraftedtale.shop",
+    href: contact.youtube,
   },
-])
+]
 </script>
 
 <style lang="scss" scoped>

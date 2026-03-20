@@ -32,7 +32,7 @@
 
       <p class="error-page__footer-note">
         Need help?
-        <a href="https://wa.me/919494521472" target="_blank" rel="noopener noreferrer" class="error-page__link">
+        <a :href="contact.whatsappUrl" target="_blank" rel="noopener noreferrer" class="error-page__link">
           Chat with us on WhatsApp
         </a>
       </p>
@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+const contact = useContactInfo()
 const error = useError()
 
 const is404 = computed(() => error.value?.statusCode === 404)
