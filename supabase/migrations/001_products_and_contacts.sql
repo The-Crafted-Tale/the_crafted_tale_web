@@ -128,39 +128,3 @@ CREATE POLICY "Authenticated delete from product_images"
     FOR DELETE
     TO authenticated
     USING (bucket_id = 'product_images');
-
--- -----------------------------------------------------------------------------
--- 5. Seed data — sample products for development
--- -----------------------------------------------------------------------------
-INSERT INTO product (name, slug, description, price, category, images, is_active, display_order)
-VALUES
-    (
-        'Floral Garden Scrapbook',
-        'floral-garden-scrapbook',
-        'A beautifully handcrafted scrapbook featuring pressed floral designs, ideal for preserving your cherished memories. Includes 20 decorated pages with pockets and interactive elements.',
-        450,
-        'Ready Made',
-        ARRAY['floral-garden-1.jpg', 'floral-garden-2.jpg'],
-        true,
-        1
-    ),
-    (
-        'Vintage Travel Journal',
-        'vintage-travel-journal',
-        'A travel-themed journal with vintage map accents and rustic binding. Perfect for documenting adventures or gifting to a wanderlust-filled soul. Customise the cover name and destination.',
-        650,
-        'Semi Custom',
-        ARRAY['vintage-travel-1.jpg', 'vintage-travel-2.jpg'],
-        true,
-        2
-    ),
-    (
-        'Anniversary Story Book',
-        'anniversary-story-book',
-        'Tell your love story from start to now in a fully bespoke, handbound book. Every page is designed from scratch based on your photos, milestones, and personal notes.',
-        1200,
-        'Custom',
-        ARRAY['anniversary-story-1.jpg', 'anniversary-story-2.jpg'],
-        true,
-        3
-    );
