@@ -1,5 +1,5 @@
 <template>
-  <div class="product-detail">
+  <div v-if="product" class="product-detail">
     <div class="product-detail__inner">
       <nav class="product-detail__breadcrumb" aria-label="Breadcrumb">
         <NuxtLink to="/">Home</NuxtLink>
@@ -65,15 +65,14 @@
 </template>
 
 <script setup lang="ts">
-import { useProducts } from '~/composables/useProducts'
+import type { Product } from '~/types'
 
 const route = useRoute()
-const { getProductBySlug, getAllProducts } = useProducts()
-
 const slug = route.params.slug as string
-const product = getProductBySlug(slug)
 
-if (!product) {
+const { data: product, error } = await useFetch<Product>(`/api/products/${slug}`)
+
+if (error.value || !product.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Product not found',
@@ -81,23 +80,25 @@ if (!product) {
 }
 
 useSeoMeta({
-  title: `${product.name} | The Crafted Tale`,
+  title: `${product.value.name} | The Crafted Tale`,
   description:
-    product.description ??
-    `Explore ${product.name} — a handcrafted creation from The Crafted Tale.`,
-  ogImage: product.images[0],
+    product.value.description ??
+    `Explore ${product.value.name} — a handcrafted creation from The Crafted Tale.`,
+  ogImage: product.value.images[0],
 })
 
 const contact = useContactInfo()
 
 const whatsappUrl = computed(() =>
-  contact.whatsappUrlWithMessage(`Hi, I'm interested in "${product.name}". Can you tell me more?`),
+  contact.whatsappUrlWithMessage(`Hi, I'm interested in "${product.value?.name}". Can you tell me more?`),
 )
 
+const { data: categoryProducts } = await useFetch<Product[]>('/api/products', {
+  query: { category: product.value.category },
+})
+
 const relatedProducts = computed(() =>
-  getAllProducts(product.category)
-    .filter((p) => p.slug !== product.slug)
-    .slice(0, 4),
+  (categoryProducts.value ?? []).filter((p) => p.slug !== slug).slice(0, 4),
 )
 </script>
 

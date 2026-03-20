@@ -42,16 +42,13 @@
 </template>
 
 <script setup lang="ts">
-import { useProducts } from '~/composables/useProducts';
-import type { ProductCategory } from '~/types'
+import type { Product, ProductCategory } from '~/types'
 
 useSeoMeta({
   title: 'Products | The Crafted Tale',
   description:
     'Browse our handcrafted collection of gifts, keepsakes, and personalized creations. Custom, semi-custom, and ready-made options available.',
 })
-
-const { getAllProducts } = useProducts()
 
 const tabs: { label: string; value: ProductCategory | undefined }[] = [
   { label: 'All', value: undefined },
@@ -62,7 +59,11 @@ const tabs: { label: string; value: ProductCategory | undefined }[] = [
 
 const activeCategory = ref<ProductCategory | undefined>(undefined)
 
-const filteredProducts = computed(() => getAllProducts(activeCategory.value))
+const { data: products } = await useFetch<Product[]>('/api/products', {
+  query: { category: activeCategory },
+})
+
+const filteredProducts = computed(() => products.value ?? [])
 </script>
 
 <style lang="scss" scoped>

@@ -45,6 +45,9 @@
             <p class="contact-page__form-desc">
               Fill in the form below and we'll respond within 24 hours.
             </p>
+            <p v-if="submitError" class="contact-page__error">
+              {{ submitError }}
+            </p>
             <ContactForm v-model:loading="formLoading" :prefill-product="prefillProductName"
               @submit="handleFormSubmit" />
           </template>
@@ -110,6 +113,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Product } from '~/types'
+
 const contact = useContactInfo()
 
 useSeoMeta({
@@ -119,29 +124,40 @@ useSeoMeta({
 })
 
 const route = useRoute()
-const { getProductBySlug } = useProducts()
+const productSlug = route.query.product as string | undefined
+
+const { data: prefillProduct } = await useAsyncData(
+  'contact-prefill-product',
+  () =>
+    productSlug
+      ? $fetch<Product>(`/api/products/${productSlug}`).catch(() => null)
+      : Promise.resolve(null),
+)
+
+const prefillProductName = computed(() => prefillProduct.value?.name)
 
 const formLoading = ref(false)
 const submitted = ref(false)
+const submitError = ref('')
 
-const prefillProductName = computed(() => {
-  const slug = route.query.product as string | undefined
-  if (!slug) return undefined
-  return getProductBySlug(slug)?.name
-})
-
-function handleFormSubmit(_payload: {
+async function handleFormSubmit(payload: {
   name: string
   email: string
   phone: string
   message: string
 }) {
   formLoading.value = true
-  // Simulated submission — will connect to POST /api/contact once the server layer is implemented
-  setTimeout(() => {
-    formLoading.value = false
+  submitError.value = ''
+
+  try {
+    await $fetch('/api/contact', { method: 'POST', body: payload })
     submitted.value = true
-  }, 1200)
+  } catch {
+    submitError.value =
+      'Something went wrong. Please try again or reach us on WhatsApp.'
+  } finally {
+    formLoading.value = false
+  }
 }
 </script>
 
@@ -210,6 +226,16 @@ function handleFormSubmit(_payload: {
     color: $text-muted;
     line-height: 1.6;
     margin-bottom: 2rem;
+  }
+
+  &__error {
+    font-size: 0.9375rem;
+    color: $error;
+    background: rgba($error, 0.08);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
   }
 
   // ---- Success state ----
