@@ -95,9 +95,9 @@ async function handleSubscribe() {
   newsletterMessage.value = ""
 
   try {
-    await $fetch("/api/waitlist", {
+    await $fetch("/api/subscribe", {
       method: "POST",
-      body: { channel: "email", value: email },
+      body: { email },
     })
     newsletterState.value = "success"
     newsletterMessage.value = "Thank you for subscribing!"

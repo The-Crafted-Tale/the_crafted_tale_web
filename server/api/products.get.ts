@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const supabase = useSupabaseServer()
 
   let query = supabase
-    .from('products')
+    .from('product')
     .select('id, name, slug, description, price, category, images, display_order')
     .eq('is_active', true)
     .order('display_order')

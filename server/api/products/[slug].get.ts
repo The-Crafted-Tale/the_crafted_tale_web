@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   const supabase = useSupabaseServer()
 
   const { data, error } = await supabase
-    .from('products')
+    .from('product')
     .select('id, name, slug, description, price, category, images, display_order')
     .eq('slug', slug)
     .eq('is_active', true)

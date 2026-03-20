@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
   const supabase = useSupabaseServer()
 
-  const { error } = await supabase.from('contact_messages').insert({
+  const { error } = await supabase.from('enquiry').insert({
     name: body.name.trim(),
     email: body.email?.trim() || null,
     phone: body.phone?.trim() || null,

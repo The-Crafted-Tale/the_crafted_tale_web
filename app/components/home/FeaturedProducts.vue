@@ -9,25 +9,20 @@
       <p class="section-desc">
         Each piece is lovingly crafted by hand, making every gift unique and personal.
       </p>
-      <div class="featured__grid">
-        <ProductCard
-          v-for="product in products"
-          :key="product.slug"
-          :product="product"
-        />
-      </div>
-      <div class="featured__cta">
-        <AppButton
-          variant="primary"
-          size="lg"
-          href="/products"
-        >
-          View All Products
-          <Icon
-            name="mdi:arrow-right"
-            size="1rem"
-          />
-        </AppButton>
+      <template v-if="products?.length">
+        <div class="featured__grid">
+          <ProductCard v-for="product in products" :key="product.slug" :product="product" />
+        </div>
+        <div class="featured__cta">
+          <AppButton variant="primary" size="lg" href="/products">
+            View All Products
+            <Icon name="mdi:arrow-right" size="1rem" />
+          </AppButton>
+        </div>
+      </template>
+      <div v-else class="featured__empty">
+        <Icon name="mdi:basket-outline" size="3rem" />
+        <p>Our shelves are being stocked with new handcrafted creations. Check back soon!</p>
       </div>
     </div>
   </section>
@@ -65,6 +60,21 @@ defineProps<{
 
   &__cta {
     margin-top: 1rem;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 1.5rem;
+    color: $text-muted;
+
+    p {
+      max-width: 28rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
   }
 }
 </style>

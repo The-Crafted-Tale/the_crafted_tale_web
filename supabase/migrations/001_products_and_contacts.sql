@@ -1,11 +1,11 @@
 -- =============================================================================
--- Migration 001: Products and Contact Messages
+-- Migration 001: Product, Enquiry, and Subscriber
 -- =============================================================================
 
 -- -----------------------------------------------------------------------------
--- 1. Products table
+-- 1. Product table
 -- -----------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE IF NOT EXISTS product (
     id            uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
     name          text        NOT NULL,
     slug          text        NOT NULL UNIQUE,
@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS products (
     updated_at    timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_products_slug     ON products (slug);
-CREATE INDEX idx_products_category ON products (category);
-CREATE INDEX idx_products_active   ON products (is_active, display_order);
+CREATE INDEX idx_product_slug     ON product (slug);
+CREATE INDEX idx_product_category ON product (category);
+CREATE INDEX idx_product_active   ON product (is_active, display_order);
 
 -- Auto-update `updated_at` on row modification
 CREATE OR REPLACE FUNCTION update_updated_at()
@@ -32,36 +32,48 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_products_updated_at
-    BEFORE UPDATE ON products
+CREATE TRIGGER trg_product_updated_at
+    BEFORE UPDATE ON product
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at();
 
 -- -----------------------------------------------------------------------------
--- 2. Contact Messages table
+-- 2. Enquiry table
 -- -----------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS contact_messages (
+CREATE TABLE IF NOT EXISTS enquiry (
     id         uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
     name       text        NOT NULL,
     email      text,
     phone      text,
     message    text        NOT NULL,
-    product_id uuid        REFERENCES products(id) ON DELETE SET NULL,
+    product_id uuid        REFERENCES product(id) ON DELETE SET NULL,
     source     text        NOT NULL DEFAULT 'contact_form',
     status     text        NOT NULL DEFAULT 'new'
                            CHECK (status IN ('new', 'responded', 'converted', 'closed')),
     created_at timestamptz NOT NULL DEFAULT now(),
 
-    CONSTRAINT contact_requires_email_or_phone
+    CONSTRAINT enquiry_requires_email_or_phone
         CHECK (email IS NOT NULL OR phone IS NOT NULL)
 );
 
-CREATE INDEX idx_contact_messages_status     ON contact_messages (status);
-CREATE INDEX idx_contact_messages_product    ON contact_messages (product_id) WHERE product_id IS NOT NULL;
-CREATE INDEX idx_contact_messages_actionable ON contact_messages (status) WHERE status IN ('new', 'responded');
+CREATE INDEX idx_enquiry_status     ON enquiry (status);
+CREATE INDEX idx_enquiry_product    ON enquiry (product_id) WHERE product_id IS NOT NULL;
+CREATE INDEX idx_enquiry_actionable ON enquiry (status) WHERE status IN ('new', 'responded');
 
 -- -----------------------------------------------------------------------------
--- 3. Storage bucket for product images
+-- 3. Subscriber table
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS subscriber (
+    id            uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+    email         text        NOT NULL UNIQUE,
+    is_active     boolean     NOT NULL DEFAULT true,
+    subscribed_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_subscriber_active ON subscriber (is_active) WHERE is_active = true;
+
+-- -----------------------------------------------------------------------------
+-- 4. Storage bucket for product images
 -- -----------------------------------------------------------------------------
 --
 -- MANUAL SETUP (if not running this SQL directly):
@@ -118,9 +130,9 @@ CREATE POLICY "Authenticated delete from product_images"
     USING (bucket_id = 'product_images');
 
 -- -----------------------------------------------------------------------------
--- 4. Seed data — sample products for development
+-- 5. Seed data — sample products for development
 -- -----------------------------------------------------------------------------
-INSERT INTO products (name, slug, description, price, category, images, is_active, display_order)
+INSERT INTO product (name, slug, description, price, category, images, is_active, display_order)
 VALUES
     (
         'Floral Garden Scrapbook',

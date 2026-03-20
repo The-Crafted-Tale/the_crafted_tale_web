@@ -19,11 +19,17 @@
       </div>
 
       <div v-else class="products-page__empty">
-        <Icon name="mdi:heart-broken-outline" size="3rem" />
-        <p>No products found in this category yet.</p>
-        <AppButton variant="ghost" @click="activeCategory = undefined">
-          View All Products
-        </AppButton>
+        <template v-if="activeCategory">
+          <Icon name="mdi:heart-broken-outline" size="3rem" />
+          <p>No products found in this category yet.</p>
+          <AppButton variant="ghost" @click="activeCategory = undefined">
+            View All Products
+          </AppButton>
+        </template>
+        <template v-else>
+          <Icon name="mdi:basket-outline" size="3rem" />
+          <p>Our shelves are being stocked with new handcrafted creations. Check back soon!</p>
+        </template>
       </div>
     </section>
   </div>
