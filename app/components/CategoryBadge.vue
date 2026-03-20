@@ -28,6 +28,7 @@ const displayLabel = computed(() => labelMap[props.category])
   border-radius: 62.5rem;
   white-space: nowrap;
   line-height: 1.4;
+  width: fit-content;
 
   &--custom {
     color: $badge-custom-fg;

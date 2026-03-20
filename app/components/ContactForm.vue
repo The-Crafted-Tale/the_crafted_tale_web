@@ -49,14 +49,14 @@ const errors = reactive({
   message: '',
 })
 
-function clearErrors() {
+const clearErrors = () => {
   errors.name = ''
   errors.email = ''
   errors.phone = ''
   errors.message = ''
 }
 
-function validate(): boolean {
+const validate = (): boolean => {
   clearErrors()
   let valid = true
 
@@ -95,7 +95,7 @@ function validate(): boolean {
   return valid
 }
 
-async function handleSubmit() {
+const handleSubmit = async () => {
   if (!validate()) return
 
   loading.value = true

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  phone: '91XXXXXXXXXX',
+  phone: '+919494521472',
   message: "Hi, I'm interested in your products!",
 })
 

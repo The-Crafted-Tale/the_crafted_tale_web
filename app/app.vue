@@ -176,7 +176,7 @@ const mockGalleryImages = [
 ]
 
 const contactSubmitted = ref(false)
-function onContactSubmit(payload: { name: string; email: string; phone: string; message: string }) {
+const onContactSubmit = (payload: { name: string; email: string; phone: string; message: string }) => {
   console.log('Contact form submitted:', payload)
   contactSubmitted.value = true
   setTimeout(() => { contactSubmitted.value = false }, 3000)
