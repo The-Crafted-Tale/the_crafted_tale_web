@@ -6,7 +6,7 @@
       <div class="hero__content">
         <span class="hero__subtitle">YOUR TALE, TO YOUR LOVED ONES</span>
         <h1 class="hero__title">
-          Crafting Stories,
+          The Crafted Tale
           <span class="hero__title-accent">One Gift at a Time</span>
         </h1>
         <p class="hero__desc">Handmade with love, delivered with care</p>
@@ -18,10 +18,6 @@
           <AppButton variant="secondary" size="lg" href="/contact">
             Get in Touch
           </AppButton>
-        </div>
-        <div class="hero__scroll-hint" aria-hidden="true">
-          <Icon name="mdi:mouse" size="1.5rem" />
-          <Icon name="mdi:chevron-down" size="1rem" class="hero__scroll-arrow" />
         </div>
       </div>
     </section>
@@ -76,8 +72,8 @@
       <div class="story__inner">
         <div class="story__image-side">
           <div class="story__image-wrap">
-            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=700&fit=crop"
-              alt="Artisan crafting by hand" class="story__image" loading="lazy" />
+            <img :src="storyImgSrc"
+              alt="Artisan crafting by hand" class="story__image" loading="lazy" @error="onStoryImgError" />
             <div class="story__image-overlay">
               <p class="story__image-quote">Every piece has a soul</p>
             </div>
@@ -171,6 +167,13 @@
 </template>
 
 <script setup lang="ts">
+const STORY_PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='700' viewBox='0 0 600 700'%3E%3Crect fill='%23f9f0f0' width='600' height='700'/%3E%3Cg transform='translate(300,320)'%3E%3Cpath d='M-50-25h100a10 10 0 0 1 10 10v65a10 10 0 0 1-10 10h-100a10 10 0 0 1-10-10v-65a10 10 0 0 1 10-10z' fill='none' stroke='%23c4909080' stroke-width='3'/%3E%3Cpath d='M0-25v100M-60 0h120' fill='none' stroke='%23c4909080' stroke-width='3'/%3E%3Cpath d='M-25-25c0 0 0-20 25-20s25 20 25 20' fill='none' stroke='%23c4909080' stroke-width='3' stroke-linecap='round'/%3E%3C/g%3E%3Ctext x='300' y='400' text-anchor='middle' fill='%23c49090' font-family='sans-serif' font-size='16'%3EImage unavailable%3C/text%3E%3C/svg%3E`
+
+const storyImgSrc = ref('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=700&fit=crop')
+function onStoryImgError() {
+  storyImgSrc.value = STORY_PLACEHOLDER
+}
+
 const featuredProducts = [
   {
     name: 'Royal Wedding Invitation',
@@ -361,30 +364,6 @@ const reviews = [
     margin-bottom: 3rem;
   }
 
-  &__scroll-hint {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.125rem;
-    color: rgba(255, 255, 255, 0.4);
-    animation: scroll-bounce 2s ease-in-out infinite;
-  }
-
-  &__scroll-arrow {
-    animation: scroll-bounce 2s ease-in-out infinite;
-  }
-}
-
-@keyframes scroll-bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(6px);
-  }
 }
 
 // ---- FEATURED PRODUCTS ----

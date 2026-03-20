@@ -11,8 +11,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <NuxtLink to="/" class="app-header__logo-link">
-          <Icon name="mdi:heart-multiple" size="1.5rem" class="app-header__logo-icon" />
-          <span class="app-header__logo-text">The Crafted Tale</span>
+          <AppLogo size="sm" />
         </NuxtLink>
 
         <nav class="app-header__nav" aria-label="Main navigation">
@@ -34,8 +33,7 @@
         <div v-if="drawerOpen" id="mobile-drawer" class="app-header__drawer-overlay" @click.self="drawerOpen = false">
           <nav class="app-header__drawer" aria-label="Mobile navigation">
             <div class="app-header__drawer-brand">
-              <Icon name="mdi:heart-multiple" size="1.25rem" class="app-header__drawer-icon" />
-              <span class="app-header__drawer-logo">The Crafted Tale</span>
+              <AppLogo size="sm" />
             </div>
             <NuxtLink v-for="link in navLinks" :key="link.to" :to="link.to" class="app-header__drawer-link"
               :class="{ 'app-header__drawer-link--active': isActive(link.to) }" @click="drawerOpen = false">
@@ -138,16 +136,6 @@ watch(() => route.path, () => {
     text-decoration: none;
   }
 
-  &__logo-icon {
-    color: $brand-gold;
-  }
-
-  &__logo-text {
-    font-family: $font-cursive;
-    font-size: 1.5rem;
-    color: $brand-gold;
-    line-height: 1;
-  }
 
   &__nav {
     display: flex;
@@ -255,15 +243,6 @@ watch(() => route.path, () => {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
 
-  &__drawer-icon {
-    color: $brand-gold;
-  }
-
-  &__drawer-logo {
-    font-family: $font-cursive;
-    font-size: 1.25rem;
-    color: $brand-gold;
-  }
 
   &__drawer-link {
     font-family: $font-body;
