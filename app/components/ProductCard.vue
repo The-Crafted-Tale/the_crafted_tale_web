@@ -18,22 +18,15 @@
 </template>
 
 <script setup lang="ts">
-interface Product {
-  name: string
-  slug: string
-  price: number
-  category: 'custom' | 'semi_custom' | 'ready_made'
-  images: string[]
-}
-
-const PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect fill='%23f9f0f0' width='400' height='400'/%3E%3Cg transform='translate(200,185)'%3E%3Cpath d='M-40-20h80a8 8 0 0 1 8 8v52a8 8 0 0 1-8 8h-80a8 8 0 0 1-8-8v-52a8 8 0 0 1 8-8z' fill='none' stroke='%23c4909080' stroke-width='3'/%3E%3Cpath d='M0-20v80M-48 0h96' fill='none' stroke='%23c4909080' stroke-width='3'/%3E%3Cpath d='M-20-20c0 0 0-16 20-16s20 16 20 16' fill='none' stroke='%23c4909080' stroke-width='3' stroke-linecap='round'/%3E%3C/g%3E%3Ctext x='200' y='260' text-anchor='middle' fill='%23c49090' font-family='sans-serif' font-size='14'%3EImage unavailable%3C/text%3E%3C/svg%3E`
+import type { Product } from "~/types"
+import placeholderProduct from "~/assets/images/placeholder-product.svg"
 
 const props = defineProps<{ product: Product }>()
 
 const imgSrc = ref(props.product.images[0])
 
 function onImgError() {
-  imgSrc.value = PLACEHOLDER
+  imgSrc.value = placeholderProduct
 }
 </script>
 
@@ -47,7 +40,9 @@ function onImgError() {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-0.375rem);

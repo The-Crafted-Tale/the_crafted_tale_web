@@ -6,15 +6,16 @@
       <p class="error-page__code">{{ error?.statusCode || 500 }}</p>
 
       <h1 class="error-page__title">
-        {{ is404 ? 'This Page Wandered' : 'Something Went' }}
-        <span class="error-page__accent">{{ is404 ? 'Away' : 'Wrong' }}</span>
+        {{ is404 ? "This Page Wandered" : "Something Went" }}
+        <span class="error-page__accent">{{ is404 ? "Away" : "Wrong" }}</span>
       </h1>
 
       <p class="error-page__desc">
-        {{ is404
-          ? `The page you're looking for seems to have drifted off — like a letter lost in the wind. Let's guide you back
+        {{
+          is404
+            ? `The page you're looking for seems to have drifted off — like a letter lost in the wind. Let's guide you back
         home.`
-          : `An unexpected hiccup happened on our end. Don't worry, every tale has a twist — let's get you back on track.`
+            : `An unexpected hiccup happened on our end. Don't worry, every tale has a twist — let's get you back on track.`
         }}
       </p>
 
@@ -30,8 +31,10 @@
       </div>
 
       <p class="error-page__footer-note">
-        Need help? <a href="https://wa.me/919494521472" target="_blank" rel="noopener noreferrer"
-          class="error-page__link">Chat with us on WhatsApp</a>
+        Need help?
+        <a href="https://wa.me/919494521472" target="_blank" rel="noopener noreferrer" class="error-page__link">
+          Chat with us on WhatsApp
+        </a>
       </p>
     </div>
   </div>
@@ -45,7 +48,6 @@ const is404 = computed(() => error.value?.statusCode === 404)
 const handleClearError = async (path: string) => {
   await clearError({ redirect: path })
 }
-
 </script>
 
 <style lang="scss" scoped>

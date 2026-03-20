@@ -1,22 +1,28 @@
 <template>
   <div class="app-input">
-    <label v-if="label" :for="uid" class="app-input__label">{{ label }}</label>
+    <label v-if="label" :for="uid" class="app-input__label">
+      {{ label }}
+    </label>
 
     <textarea v-if="type === 'textarea'" :id="uid" :value="modelValue" :placeholder="placeholder" :required="required"
+      :aria-invalid="!!error || undefined" :aria-describedby="error ? `${uid}-error` : undefined"
       :class="['app-input__field', 'app-input__field--textarea', { 'app-input__field--error': error }]" rows="4"
       @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)" />
 
     <input v-else :id="uid" :type="type" :value="modelValue" :placeholder="placeholder" :required="required"
+      :aria-invalid="!!error || undefined" :aria-describedby="error ? `${uid}-error` : undefined"
       :class="['app-input__field', { 'app-input__field--error': error }]"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
-    <p v-if="error" class="app-input__error">{{ error }}</p>
+    <p v-if="error" :id="`${uid}-error`" role="alert" class="app-input__error">
+      {{ error }}
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
 interface Props {
   label?: string
-  type?: 'text' | 'email' | 'tel' | 'textarea'
+  type?: "text" | "email" | "tel" | "textarea"
   modelValue?: string
   placeholder?: string
   required?: boolean
@@ -24,13 +30,16 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  type: 'text',
-  modelValue: '',
+  type: "text",
+  modelValue: "",
   required: false,
+  label: undefined,
+  placeholder: undefined,
+  error: undefined,
 })
 
 defineEmits<{
-  'update:modelValue': [value: string]
+  "update:modelValue": [value: string]
 }>()
 
 const uid = useId()
@@ -57,7 +66,9 @@ const uid = useId()
     background: #fff;
     border: 0.0625rem solid $border;
     border-radius: 0.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
     &::placeholder {
       color: $text-placeholder;

@@ -1,37 +1,34 @@
 <template>
   <component :is="href ? resolveComponent('NuxtLink') : 'button'" :to="href || undefined"
     :href="href && isExternal ? href : undefined" :target="href && isExternal ? '_blank' : undefined"
-    :rel="href && isExternal ? 'noopener noreferrer' : undefined" :disabled="(disabled || loading) || undefined"
+    :rel="href && isExternal ? 'noopener noreferrer' : undefined" :disabled="disabled || loading || undefined"
     :class="['app-btn', `app-btn--${variant}`, `app-btn--${size}`]">
-
     <span v-if="loading" class="app-btn__spinner" aria-hidden="true" />
 
     <slot />
-
   </component>
 </template>
 
 <script setup lang="ts">
-import { resolveComponent } from 'vue'
+import { resolveComponent } from "vue"
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'gold'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: "primary" | "secondary" | "ghost" | "gold"
+  size?: "sm" | "md" | "lg"
   href?: string
   disabled?: boolean
   loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
+  variant: "primary",
+  size: "md",
   disabled: false,
   loading: false,
+  href: undefined,
 })
 
-const isExternal = computed(() =>
-  props.href?.startsWith('http') || props.href?.startsWith('//')
-)
+const isExternal = computed(() => props.href?.startsWith("http") || props.href?.startsWith("//"))
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +43,11 @@ const isExternal = computed(() =>
   border-radius: 2rem;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    background-color 0.2s,
+    color 0.2s;
   white-space: nowrap;
   letter-spacing: 0.01em;
 

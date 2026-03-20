@@ -8,10 +8,8 @@
             <span class="app-footer__logo-text">The Crafted Tale</span>
           </div>
           <p class="app-footer__tagline">Handcrafted with love</p>
-          <p class="app-footer__desc">
-            Every piece tells a story. We create personalized, handmade gifts
-            that capture your most cherished moments and deliver them with care.
-          </p>
+          <p class="app-footer__desc">Every piece tells a story. We create personalized, handmade gifts that capture
+            your most cherished moments and deliver them with care.</p>
         </div>
 
         <div class="app-footer__links-col">
@@ -40,15 +38,20 @@
 
         <div class="app-footer__newsletter-col">
           <h4 class="app-footer__col-title">Stay Updated</h4>
-          <p class="app-footer__newsletter-desc">
-            Get the latest on new creations, offers, and heartfelt stories.
-          </p>
-          <form class="app-footer__newsletter" @submit.prevent>
-            <input type="email" placeholder="Your email" class="app-footer__newsletter-input" />
-            <button type="submit" class="app-footer__newsletter-btn">
-              Subscribe
+          <p class="app-footer__newsletter-desc">Get the latest on new creations, offers, and heartfelt stories.</p>
+          <form class="app-footer__newsletter" @submit.prevent="handleSubscribe">
+            <input v-model="newsletterEmail" type="email" placeholder="Your email" class="app-footer__newsletter-input"
+              aria-label="Email for newsletter"
+              :disabled="newsletterState === 'loading' || newsletterState === 'success'" />
+            <button type="submit" class="app-footer__newsletter-btn"
+              :disabled="newsletterState === 'loading' || newsletterState === 'success'">
+              {{ newsletterButtonText }}
             </button>
           </form>
+          <p v-if="newsletterMessage"
+            :class="['app-footer__newsletter-msg', { 'app-footer__newsletter-msg--error': newsletterState === 'error' }]">
+            {{ newsletterMessage }}
+          </p>
         </div>
       </div>
 
@@ -69,6 +72,42 @@
 
 <script setup lang="ts">
 const currentYear = new Date().getFullYear()
+
+const newsletterEmail = ref("")
+const newsletterState = ref<"idle" | "loading" | "success" | "error">("idle")
+const newsletterMessage = ref("")
+
+const newsletterButtonText = computed(() => {
+  if (newsletterState.value === "loading") return "Sending..."
+  if (newsletterState.value === "success") return "Subscribed!"
+  return "Subscribe"
+})
+
+async function handleSubscribe() {
+  const email = newsletterEmail.value.trim()
+  if (!email) return
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    newsletterState.value = "error"
+    newsletterMessage.value = "Please enter a valid email address."
+    return
+  }
+
+  newsletterState.value = "loading"
+  newsletterMessage.value = ""
+
+  try {
+    await $fetch("/api/waitlist", {
+      method: "POST",
+      body: { channel: "email", value: email },
+    })
+    newsletterState.value = "success"
+    newsletterMessage.value = "Thank you for subscribing!"
+  } catch {
+    newsletterState.value = "error"
+    newsletterMessage.value = "Something went wrong. Please try again."
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -78,7 +117,7 @@ const currentYear = new Date().getFullYear()
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -162,7 +201,9 @@ const currentYear = new Date().getFullYear()
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
-    transition: color 0.2s ease, padding-left 0.2s ease;
+    transition:
+      color 0.2s ease,
+      padding-left 0.2s ease;
 
     &:hover {
       color: $brand-gold;
@@ -213,7 +254,9 @@ const currentYear = new Date().getFullYear()
     border-right: none;
     border-radius: 0.5rem 0 0 0.5rem;
     outline: none;
-    transition: background 0.2s, border-color 0.2s;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
 
     &::placeholder {
       color: rgba(255, 255, 255, 0.4);
@@ -235,12 +278,30 @@ const currentYear = new Date().getFullYear()
     border: none;
     border-radius: 0 0.5rem 0.5rem 0;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition:
+      background 0.2s,
+      transform 0.15s;
     white-space: nowrap;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: $brand-gold-light;
       transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  &__newsletter-msg {
+    font-size: 0.8125rem;
+    color: $brand-gold-light;
+    margin-top: 0.5rem;
+
+    &--error {
+      color: #fca5a5;
     }
   }
 

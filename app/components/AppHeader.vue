@@ -30,8 +30,9 @@
 
     <Teleport to="body">
       <Transition name="drawer">
-        <div v-if="drawerOpen" id="mobile-drawer" class="app-header__drawer-overlay" @click.self="drawerOpen = false">
-          <nav class="app-header__drawer" aria-label="Mobile navigation">
+        <div v-if="drawerOpen" id="mobile-drawer" class="app-header__drawer-overlay" @click.self="drawerOpen = false"
+          @keydown="handleDrawerKeydown">
+          <nav ref="drawerRef" class="app-header__drawer" aria-label="Mobile navigation">
             <div class="app-header__drawer-brand">
               <AppLogo size="sm" />
             </div>
@@ -50,32 +51,76 @@
 const route = useRoute()
 const drawerOpen = ref(false)
 const scrolled = ref(false)
+const drawerRef = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   const onScroll = () => {
     scrolled.value = window.scrollY > 40
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener("scroll", onScroll, { passive: true })
 
-  onUnmounted(() => window.removeEventListener('scroll', onScroll))
+  onUnmounted(() => window.removeEventListener("scroll", onScroll))
 })
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/products', label: 'Products' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
+  { to: "/", label: "Home" },
+  { to: "/products", label: "Products" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ]
 
 function isActive(to: string) {
-  if (to === '/') return route.path === '/'
+  if (to === "/") return route.path === "/"
   return route.path.startsWith(to)
 }
 
-watch(() => route.path, () => {
-  drawerOpen.value = false
+watch(
+  () => route.path,
+  () => {
+    drawerOpen.value = false
+  },
+)
+
+watch(drawerOpen, (open) => {
+  if (typeof document === "undefined") return
+
+  if (open) {
+    document.body.style.overflow = "hidden"
+    nextTick(() => {
+      const firstLink = drawerRef.value?.querySelector("a")
+      firstLink?.focus()
+    })
+  } else {
+    document.body.style.overflow = ""
+  }
 })
+
+function handleDrawerKeydown(e: KeyboardEvent) {
+  if (e.key === "Escape") {
+    drawerOpen.value = false
+    return
+  }
+
+  if (e.key !== "Tab") return
+
+  const drawer = drawerRef.value
+  if (!drawer) return
+
+  const focusable = drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+  if (!focusable.length) return
+
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault()
+    last?.focus()
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault()
+    first?.focus()
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -98,7 +143,10 @@ watch(() => route.path, () => {
   text-align: center;
   max-height: 3rem;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s ease,
+    opacity 0.2s ease;
 
   &__text {
     font-family: $font-body;
@@ -135,7 +183,6 @@ watch(() => route.path, () => {
     gap: 0.5rem;
     text-decoration: none;
   }
-
 
   &__nav {
     display: flex;
@@ -242,7 +289,6 @@ watch(() => route.path, () => {
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
-
 
   &__drawer-link {
     font-family: $font-body;

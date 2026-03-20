@@ -16,13 +16,13 @@ The goal is to build a software ecosystem that grows with the business, starting
 
 ## Phased Roadmap
 
-| Phase | What | When |
-|-------|------|------|
-| **1 — Public Storefront** | Product catalog, about page, contact form, WhatsApp button | Now |
-| 2 — User Auth & Orders | Email OTP login, order request system, user profiles | When traffic justifies it |
-| 3 — Admin Panel | Product CRUD, order management, customer list | When managing via Supabase dashboard becomes painful |
-| 4 — SEO & Marketing | Meta tags, Open Graph, sitemap, blog/content | After storefront is live |
-| 5 — Payments | Razorpay/Stripe integration | After business registration |
+| Phase                     | What                                                       | When                                                 |
+| ------------------------- | ---------------------------------------------------------- | ---------------------------------------------------- |
+| **1 — Public Storefront** | Product catalog, about page, contact form, WhatsApp button | Now                                                  |
+| 2 — User Auth & Orders    | Email OTP login, order request system, user profiles       | When traffic justifies it                            |
+| 3 — Admin Panel           | Product CRUD, order management, customer list              | When managing via Supabase dashboard becomes painful |
+| 4 — SEO & Marketing       | Meta tags, Open Graph, sitemap, blog/content               | After storefront is live                             |
+| 5 — Payments              | Razorpay/Stripe integration                                | After business registration                          |
 
 This document covers **Phase 1** in detail. Later phases are intentionally deferred (YAGNI).
 
@@ -36,13 +36,13 @@ Replace the waitlist-only site with a product showcase that drives WhatsApp conv
 
 ### Pages
 
-| Page | Route | Purpose |
-|------|-------|---------|
-| Home | `/` | Hero + featured products + brand intro + CTA to browse catalog |
-| Product Listing | `/products` | Grid of all products with category filter tabs |
-| Product Detail | `/products/:slug` | Images, description, price, WhatsApp CTA |
-| About | `/about` | Brand story, the craft, the maker(s) |
-| Contact | `/contact` | Simple contact form (name, email/phone, message) |
+| Page            | Route             | Purpose                                                        |
+| --------------- | ----------------- | -------------------------------------------------------------- |
+| Home            | `/`               | Hero + featured products + brand intro + CTA to browse catalog |
+| Product Listing | `/products`       | Grid of all products with category filter tabs                 |
+| Product Detail  | `/products/:slug` | Images, description, price, WhatsApp CTA                       |
+| About           | `/about`          | Brand story, the craft, the maker(s)                           |
+| Contact         | `/contact`        | Simple contact form (name, email/phone, message)               |
 
 A floating WhatsApp button appears on every page.
 
@@ -52,31 +52,31 @@ Two new Supabase tables alongside the existing `waitlist` table.
 
 #### `products`
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | uuid | Primary key, auto-generated |
-| name | text | Product name |
-| slug | text | Unique, used in URL (`/products/hand-painted-diary`) |
-| description | text | Full product description |
-| price | numeric | Display price in INR |
-| category | text | One of: `custom`, `semi_custom`, `ready_made` |
-| images | text[] | Array of Supabase Storage public URLs |
-| is_active | boolean | Default `true`. Set `false` to hide without deleting |
-| display_order | integer | Controls sort order on the listing page |
-| created_at | timestamptz | Auto-set on insert |
-| updated_at | timestamptz | Auto-set on update |
+| Column        | Type        | Notes                                                |
+| ------------- | ----------- | ---------------------------------------------------- |
+| id            | uuid        | Primary key, auto-generated                          |
+| name          | text        | Product name                                         |
+| slug          | text        | Unique, used in URL (`/products/hand-painted-diary`) |
+| description   | text        | Full product description                             |
+| price         | numeric     | Display price in INR                                 |
+| category      | text        | One of: `custom`, `semi_custom`, `ready_made`        |
+| images        | text[]      | Array of Supabase Storage public URLs                |
+| is_active     | boolean     | Default `true`. Set `false` to hide without deleting |
+| display_order | integer     | Controls sort order on the listing page              |
+| created_at    | timestamptz | Auto-set on insert                                   |
+| updated_at    | timestamptz | Auto-set on update                                   |
 
 #### `contact_messages`
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | uuid | Primary key, auto-generated |
-| name | text | Sender's name |
-| email | text | Nullable |
-| phone | text | Nullable |
-| message | text | The inquiry |
-| is_read | boolean | Default `false`. For you to track in Supabase dashboard |
-| created_at | timestamptz | Auto-set on insert |
+| Column     | Type        | Notes                                                   |
+| ---------- | ----------- | ------------------------------------------------------- |
+| id         | uuid        | Primary key, auto-generated                             |
+| name       | text        | Sender's name                                           |
+| email      | text        | Nullable                                                |
+| phone      | text        | Nullable                                                |
+| message    | text        | The inquiry                                             |
+| is_read    | boolean     | Default `false`. For you to track in Supabase dashboard |
+| created_at | timestamptz | Auto-set on insert                                      |
 
 At least one of `email` or `phone` is required (enforced in application logic).
 
@@ -196,7 +196,7 @@ Supabase Storage (images)
 Supabase DB: products table
         │
 Server API: /api/products ──→ Nuxt pages render catalog
-        
+
 Contact Form ──→ Server API: /api/contact ──→ Supabase DB: contact_messages
 ```
 

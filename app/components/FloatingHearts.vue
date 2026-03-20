@@ -24,7 +24,7 @@ const hearts = computed(() =>
       animationDuration: `${6 + Math.random() * 10}s`,
       animationDelay: `${Math.random() * 8}s`,
     },
-  }))
+  })),
 )
 </script>
 

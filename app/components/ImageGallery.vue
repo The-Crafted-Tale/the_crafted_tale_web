@@ -6,8 +6,8 @@
 
     <div v-if="images.length > 1" class="gallery__thumbs">
       <button v-for="(src, index) in images" :key="index"
-        :class="['gallery__thumb', { 'gallery__thumb--active': index === activeIndex }]" @click="activeIndex = index"
-        :aria-label="`View image ${index + 1}`" type="button">
+        :class="['gallery__thumb', { 'gallery__thumb--active': index === activeIndex }]"
+        :aria-label="`View image ${index + 1}`" type="button" @click="activeIndex = index">
         <img :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" />
       </button>
     </div>
@@ -21,7 +21,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  alt: 'Product image',
+  alt: "Product image",
 })
 
 const activeIndex = ref(0)
@@ -59,6 +59,10 @@ const activeIndex = ref(0)
 
     scrollbar-width: thin;
     scrollbar-color: $border transparent;
+
+    @include tablet-down {
+      gap: 0.375rem;
+    }
   }
 
   &__thumb {
@@ -71,7 +75,9 @@ const activeIndex = ref(0)
     overflow: hidden;
     cursor: pointer;
     background: $brand-bg;
-    transition: border-color 0.2s ease, opacity 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      opacity 0.2s ease;
 
     img {
       width: 100%;
@@ -91,16 +97,8 @@ const activeIndex = ref(0)
         border-color: $brand-red;
       }
     }
-  }
-}
 
-@include tablet-down {
-  .gallery {
-    &__thumbs {
-      gap: 0.375rem;
-    }
-
-    &__thumb {
+    @include tablet-down {
       width: 3.5rem;
       height: 3.5rem;
     }

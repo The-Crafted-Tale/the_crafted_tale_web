@@ -11,13 +11,11 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  phone: '+919494521472',
+  phone: "+919494521472",
   message: "Hi, I'm interested in your products!",
 })
 
-const whatsappUrl = computed(
-  () => `https://wa.me/${props.phone}?text=${encodeURIComponent(props.message)}`
-)
+const whatsappUrl = computed(() => `https://wa.me/${props.phone}?text=${encodeURIComponent(props.message)}`)
 </script>
 
 <style lang="scss" scoped>
@@ -36,7 +34,9 @@ const whatsappUrl = computed(
   border-radius: 50%;
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.18);
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   animation: whatsapp-enter 0.5s ease both;
   animation-delay: 1s;
 

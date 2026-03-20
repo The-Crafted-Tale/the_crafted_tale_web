@@ -76,11 +76,11 @@
     <section class="showcase__section">
       <h2 class="showcase__heading">AppInput</h2>
       <div class="showcase__grid">
-        <AppInput label="Name" placeholder="Enter your name" v-model="demoName" />
-        <AppInput label="Email" type="email" placeholder="you@example.com" v-model="demoEmail" />
-        <AppInput label="Phone" type="tel" placeholder="+91 98765 43210" v-model="demoPhone" />
-        <AppInput label="With Error" placeholder="Required field" error="This field is required" v-model="demoError" />
-        <AppInput label="Message" type="textarea" placeholder="Tell us about your order..." v-model="demoMessage" />
+        <AppInput v-model="demoName" label="Name" placeholder="Enter your name" />
+        <AppInput v-model="demoEmail" label="Email" type="email" placeholder="you@example.com" />
+        <AppInput v-model="demoPhone" label="Phone" type="tel" placeholder="+91 98765 43210" />
+        <AppInput v-model="demoError" label="With Error" placeholder="Required field" error="This field is required" />
+        <AppInput v-model="demoMessage" label="Message" type="textarea" placeholder="Tell us about your order..." />
       </div>
     </section>
 
@@ -136,48 +136,50 @@
 </template>
 
 <script setup lang="ts">
-const demoName = ref('')
-const demoEmail = ref('')
-const demoPhone = ref('')
-const demoError = ref('')
-const demoMessage = ref('')
+const demoName = ref("")
+const demoEmail = ref("")
+const demoPhone = ref("")
+const demoError = ref("")
+const demoMessage = ref("")
 
 const mockProducts = [
   {
-    name: 'Royal Wedding Invitation',
-    slug: 'royal-wedding-invitation',
+    name: "Royal Wedding Invitation",
+    slug: "royal-wedding-invitation",
     price: 1299,
-    category: 'custom' as const,
-    images: ['https://placehold.co/400x400/fce0e5/8e0026?text=Wedding+Card'],
+    category: "custom" as const,
+    images: ["https://placehold.co/400x400/fce0e5/8e0026?text=Wedding+Card"],
   },
   {
-    name: 'Floral Birthday Card',
-    slug: 'floral-birthday-card',
+    name: "Floral Birthday Card",
+    slug: "floral-birthday-card",
     price: 450,
-    category: 'ready_made' as const,
-    images: ['https://placehold.co/400x400/d1fae5/065f46?text=Birthday+Card'],
+    category: "ready_made" as const,
+    images: ["https://placehold.co/400x400/d1fae5/065f46?text=Birthday+Card"],
   },
   {
-    name: 'Elegant Anniversary Card',
-    slug: 'elegant-anniversary-card',
+    name: "Elegant Anniversary Card",
+    slug: "elegant-anniversary-card",
     price: 899,
-    category: 'semi_custom' as const,
-    images: ['https://placehold.co/400x400/ede9fe/5b21b6?text=Anniversary'],
+    category: "semi_custom" as const,
+    images: ["https://placehold.co/400x400/ede9fe/5b21b6?text=Anniversary"],
   },
 ]
 
 const mockGalleryImages = [
-  'https://placehold.co/600x600/fce0e5/8e0026?text=Image+1',
-  'https://placehold.co/600x600/d1fae5/065f46?text=Image+2',
-  'https://placehold.co/600x600/ede9fe/5b21b6?text=Image+3',
-  'https://placehold.co/600x600/fef3c7/92400e?text=Image+4',
+  "https://placehold.co/600x600/fce0e5/8e0026?text=Image+1",
+  "https://placehold.co/600x600/d1fae5/065f46?text=Image+2",
+  "https://placehold.co/600x600/ede9fe/5b21b6?text=Image+3",
+  "https://placehold.co/600x600/fef3c7/92400e?text=Image+4",
 ]
 
 const contactSubmitted = ref(false)
 const onContactSubmit = (payload: { name: string; email: string; phone: string; message: string }) => {
-  console.log('Contact form submitted:', payload)
+  console.log("Contact form submitted:", payload)
   contactSubmitted.value = true
-  setTimeout(() => { contactSubmitted.value = false }, 3000)
+  setTimeout(() => {
+    contactSubmitted.value = false
+  }, 3000)
 }
 </script>
 

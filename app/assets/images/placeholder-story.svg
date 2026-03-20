@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
+  <rect fill="#f9f0f0" width="600" height="700"/>
+  <g transform="translate(300,320)">
+    <path d="M-50-25h100a10 10 0 0 1 10 10v65a10 10 0 0 1-10 10h-100a10 10 0 0 1-10-10v-65a10 10 0 0 1 10-10z" fill="none" stroke="#c4909080" stroke-width="3"/>
+    <path d="M0-25v100M-60 0h120" fill="none" stroke="#c4909080" stroke-width="3"/>
+    <path d="M-25-25c0 0 0-20 25-20s25 20 25 20" fill="none" stroke="#c4909080" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="300" y="400" text-anchor="middle" fill="#c49090" font-family="sans-serif" font-size="16">Image unavailable</text>
+</svg>

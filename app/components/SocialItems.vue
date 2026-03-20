@@ -15,9 +15,24 @@ const props = defineProps<{
 }>()
 
 const socialLinks = computed(() => [
-  { name: 'instagram', label: 'Instagram', icon: 'mdi:instagram', href: props.instagram || 'https://instagram.com/thecraftedtale.shop' },
-  { name: 'facebook', label: 'Facebook', icon: 'mdi:facebook', href: props.facebook || 'https://facebook.com/thecraftedtale.shop' },
-  { name: 'youtube', label: 'YouTube', icon: 'mdi:youtube', href: props.youtube || 'https://youtube.com/thecraftedtale.shop' },
+  {
+    name: "instagram",
+    label: "Instagram",
+    icon: "mdi:instagram",
+    href: props.instagram || "https://instagram.com/thecraftedtale.shop",
+  },
+  {
+    name: "facebook",
+    label: "Facebook",
+    icon: "mdi:facebook",
+    href: props.facebook || "https://facebook.com/thecraftedtale.shop",
+  },
+  {
+    name: "youtube",
+    label: "YouTube",
+    icon: "mdi:youtube",
+    href: props.youtube || "https://youtube.com/thecraftedtale.shop",
+  },
 ])
 </script>
 
@@ -38,7 +53,10 @@ const socialLinks = computed(() => [
     background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     text-decoration: none;
-    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      transform 0.15s ease;
 
     &:hover {
       color: $brand-gold;
