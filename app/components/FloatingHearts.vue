@@ -38,7 +38,7 @@ const hearts = computed(() =>
 
   &__heart {
     position: absolute;
-    color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.35);
     animation: heart-float linear infinite;
     will-change: transform, opacity;
   }

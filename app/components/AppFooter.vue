@@ -221,13 +221,19 @@ async function handleSubscribe() {
     margin-bottom: 1rem;
   }
 
+  &__newsletter-col {
+    min-width: 0;
+  }
+
   &__newsletter {
     display: flex;
     gap: 0;
+    max-width: 100%;
   }
 
   &__newsletter-input {
     flex: 1;
+    min-width: 0;
     padding: 0.625rem 0.875rem;
     font-family: $font-body;
     font-size: 0.875rem;
