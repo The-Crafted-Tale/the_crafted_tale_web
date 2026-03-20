@@ -1,19 +1,7 @@
 <template>
   <div class="contact-page">
-    <section class="contact-page__hero">
-      <FloatingHearts :count="8" />
-      <div class="contact-page__hero-inner">
-        <span class="section-label section-label--light">GET IN TOUCH</span>
-        <h1 class="section-title section-title--light">
-          Let's Create
-          <span class="section-title__accent">Together</span>
-        </h1>
-        <p class="contact-page__hero-desc">
-          Have a question, a custom request, or just want to say hello? We'd
-          love to hear from you.
-        </p>
-      </div>
-    </section>
+    <PageHero label="GET IN TOUCH" title="Let's Create" accent="Together"
+      description="Have a question, a custom request, or just want to say hello? We'd love to hear from you." />
 
     <section class="contact-page__content">
       <div class="contact-page__inner">
@@ -113,8 +101,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '~/types'
-
 const contact = useContactInfo()
 
 useSeoMeta({
@@ -126,15 +112,11 @@ useSeoMeta({
 const route = useRoute()
 const productSlug = route.query.product as string | undefined
 
-const { data: prefillProduct } = await useAsyncData(
-  'contact-prefill-product',
-  () =>
-    productSlug
-      ? $fetch<Product>(`/api/products/${productSlug}`).catch(() => null)
-      : Promise.resolve(null),
-)
+const { getBySlug } = await useProductStore()
 
-const prefillProductName = computed(() => prefillProduct.value?.name)
+const prefillProductName = computed(() =>
+  productSlug ? getBySlug(productSlug)?.name : undefined,
+)
 
 const formLoading = ref(false)
 const submitted = ref(false)
@@ -163,30 +145,6 @@ async function handleFormSubmit(payload: {
 
 <style lang="scss" scoped>
 .contact-page {
-  &__hero {
-    position: relative;
-    padding: 6rem 1.5rem 4rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center,
-        $brand-crimson 0%,
-        $brand-crimson-dark 60%,
-        $brand-maroon 100%);
-    overflow: hidden;
-  }
-
-  &__hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  &__hero-desc {
-    font-size: 1.0625rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-  }
-
   // ---- Content ----
   &__content {
     padding: 4rem 1.5rem 5rem;

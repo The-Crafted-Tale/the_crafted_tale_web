@@ -10,9 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '~/types'
+const { getFeatured } = await useProductStore()
 
-const { data: allProducts } = await useFetch<Product[]>('/api/products')
-
-const featuredProducts = computed(() => (allProducts.value ?? []).slice(0, 4))
+const featuredProducts = computed(() => getFeatured(4))
 </script>

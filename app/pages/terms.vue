@@ -1,19 +1,7 @@
 <template>
   <div class="terms-page">
-    <section class="terms-page__hero">
-      <FloatingHearts :count="6" />
-      <div class="terms-page__hero-inner">
-        <span class="section-label section-label--light">OUR AGREEMENT</span>
-        <h1 class="section-title section-title--light">
-          Terms of
-          <span class="section-title__accent">Service</span>
-        </h1>
-        <p class="terms-page__hero-desc">
-          Please read these terms carefully before using our website or placing
-          an order with The Crafted Tale.
-        </p>
-      </div>
-    </section>
+    <PageHero label="OUR AGREEMENT" title="Terms of" accent="Service"
+      description="Please read these terms carefully before using our website or placing an order with The Crafted Tale." />
 
     <section class="terms-page__content">
       <div class="terms-page__inner">
@@ -165,30 +153,6 @@ const sections = [
 
 <style lang="scss" scoped>
 .terms-page {
-  &__hero {
-    position: relative;
-    padding: 6rem 1.5rem 4rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center,
-        $brand-crimson 0%,
-        $brand-crimson-dark 60%,
-        $brand-maroon 100%);
-    overflow: hidden;
-  }
-
-  &__hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  &__hero-desc {
-    font-size: 1.0625rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-  }
-
   &__content {
     padding: 4rem 1.5rem 5rem;
     background: $brand-bg;

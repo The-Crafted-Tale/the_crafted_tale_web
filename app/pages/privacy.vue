@@ -1,19 +1,7 @@
 <template>
   <div class="privacy-page">
-    <section class="privacy-page__hero">
-      <FloatingHearts :count="6" />
-      <div class="privacy-page__hero-inner">
-        <span class="section-label section-label--light">YOUR PRIVACY MATTERS</span>
-        <h1 class="section-title section-title--light">
-          Privacy
-          <span class="section-title__accent">Policy</span>
-        </h1>
-        <p class="privacy-page__hero-desc">
-          We value your trust and are committed to protecting the personal
-          information you share with us.
-        </p>
-      </div>
-    </section>
+    <PageHero label="YOUR PRIVACY MATTERS" title="Privacy" accent="Policy"
+      description="We value your trust and are committed to protecting the personal information you share with us." />
 
     <section class="privacy-page__content">
       <div class="privacy-page__inner">
@@ -142,30 +130,6 @@ const sections = [
 
 <style lang="scss" scoped>
 .privacy-page {
-  &__hero {
-    position: relative;
-    padding: 6rem 1.5rem 4rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center,
-        $brand-crimson 0%,
-        $brand-crimson-dark 60%,
-        $brand-maroon 100%);
-    overflow: hidden;
-  }
-
-  &__hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  &__hero-desc {
-    font-size: 1.0625rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-  }
-
   &__content {
     padding: 4rem 1.5rem 5rem;
     background: $brand-bg;

@@ -5,6 +5,11 @@
 </template>
 
 <script setup lang="ts">
+interface Heart {
+  id: number
+  style: Record<string, string | number>
+}
+
 interface Props {
   count?: number
 }
@@ -13,8 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
   count: 15,
 })
 
-const hearts = computed(() =>
-  Array.from({ length: props.count }, (_, i) => ({
+const hearts = ref<Heart[]>([])
+
+onMounted(() => {
+  hearts.value = Array.from({ length: props.count }, (_, i) => ({
     id: i,
     style: {
       left: `${Math.random() * 100}%`,
@@ -24,8 +31,8 @@ const hearts = computed(() =>
       animationDuration: `${6 + Math.random() * 10}s`,
       animationDelay: `${Math.random() * 8}s`,
     },
-  })),
-)
+  }))
+})
 </script>
 
 <style lang="scss" scoped>

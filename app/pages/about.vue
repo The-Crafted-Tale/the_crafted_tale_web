@@ -1,26 +1,16 @@
 <template>
   <div class="about-page">
-    <section class="about-page__hero">
-      <FloatingHearts :count="10" />
-      <div class="about-page__hero-inner">
-        <span class="section-label section-label--light">OUR STORY</span>
-        <h1 class="section-title section-title--light">
-          The Heart Behind
-          <span class="section-title__accent">The Craft</span>
-        </h1>
-        <p class="about-page__hero-desc">
-          Every handmade creation carries a piece of our soul — crafted with
-          patience, passion, and a whole lot of love.
-        </p>
-      </div>
-    </section>
+    <PageHero label="OUR STORY" title="The Heart Behind" accent="The Craft"
+      description="Every handmade creation carries a piece of our soul — crafted with patience, passion, and a whole lot of love."
+      :hearts="10" />
 
     <section class="about-page__story">
       <div class="about-page__story-inner">
         <div class="about-page__story-image-side">
           <div class="about-page__story-image-wrap">
-            <img :src="storyImgSrc" alt="Artisan workspace with craft supplies" class="about-page__story-image"
-              loading="lazy" width="560" height="640" @error="onStoryImgError">
+            <NuxtImg :src="storyImgSrc" alt="Artisan workspace with craft supplies" class="about-page__story-image"
+              loading="lazy" width="560" height="640" sizes="(max-width: 768px) 100vw, 560px" format="webp"
+              @error="onStoryImgError" />
             <div class="about-page__story-image-overlay">
               <p class="about-page__story-image-quote">
                 Where every piece begins
@@ -196,29 +186,6 @@ const values = [
 
 <style lang="scss" scoped>
 .about-page {
-  &__hero {
-    position: relative;
-    padding: 6rem 1.5rem 4rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center,
-        $brand-crimson 0%,
-        $brand-crimson-dark 60%,
-        $brand-maroon 100%);
-    overflow: hidden;
-  }
-
-  &__hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  &__hero-desc {
-    font-size: 1.0625rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-  }
 
   // ---- Story section ----
   &__story {

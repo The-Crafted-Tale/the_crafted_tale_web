@@ -1,19 +1,7 @@
 <template>
   <div class="products-page">
-    <section class="products-page__hero">
-      <FloatingHearts :count="8" />
-      <div class="products-page__hero-inner">
-        <span class="section-label section-label--light">OUR COLLECTION</span>
-        <h1 class="section-title section-title--light">
-          Handcrafted
-          <span class="section-title__accent">Treasures</span>
-        </h1>
-        <p class="products-page__hero-desc">
-          Browse our lovingly crafted collection of gifts, keepsakes, and
-          personalized creations.
-        </p>
-      </div>
-    </section>
+    <PageHero label="OUR COLLECTION" title="Handcrafted" accent="Treasures"
+      description="Browse our lovingly crafted collection of gifts, keepsakes, and personalized creations." />
 
     <section class="products-page__content">
       <div class="products-page__filters" role="tablist" aria-label="Filter by category">
@@ -42,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product, ProductCategory } from '~/types'
+import type { ProductCategory } from '~/types'
 
 useSeoMeta({
   title: 'Products | The Crafted Tale',
@@ -59,39 +47,13 @@ const tabs: { label: string; value: ProductCategory | undefined }[] = [
 
 const activeCategory = ref<ProductCategory | undefined>(undefined)
 
-const { data: products } = await useFetch<Product[]>('/api/products', {
-  query: { category: activeCategory },
-})
+const { getByCategory } = await useProductStore()
 
-const filteredProducts = computed(() => products.value ?? [])
+const filteredProducts = computed(() => getByCategory(activeCategory.value))
 </script>
 
 <style lang="scss" scoped>
 .products-page {
-  &__hero {
-    position: relative;
-    padding: 6rem 1.5rem 4rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center,
-        $brand-crimson 0%,
-        $brand-crimson-dark 60%,
-        $brand-maroon 100%);
-    overflow: hidden;
-  }
-
-  &__hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  &__hero-desc {
-    font-size: 1.0625rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-  }
-
   &__content {
     max-width: 76rem;
     margin: 0 auto;

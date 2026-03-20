@@ -3,15 +3,8 @@
     <div class="story__inner">
       <div class="story__image-side">
         <div class="story__image-wrap">
-          <img
-            :src="storyImgSrc"
-            alt="Artisan crafting by hand"
-            class="story__image"
-            loading="lazy"
-            width="600"
-            height="700"
-            @error="onStoryImgError"
-          />
+          <NuxtImg :src="storyImgSrc" alt="Artisan crafting by hand" class="story__image" loading="lazy" width="600"
+            height="700" sizes="(max-width: 768px) 100vw, 600px" format="webp" @error="onStoryImgError" />
           <div class="story__image-overlay">
             <p class="story__image-quote">Every piece has a soul</p>
           </div>
@@ -33,24 +26,15 @@
         </p>
         <div class="story__badges">
           <span class="story__badge">
-            <Icon
-              name="mdi:hand-heart"
-              size="1.125rem"
-            />
+            <Icon name="mdi:hand-heart" size="1.125rem" />
             100% Handmade
           </span>
           <span class="story__badge">
-            <Icon
-              name="mdi:heart"
-              size="1.125rem"
-            />
+            <Icon name="mdi:heart" size="1.125rem" />
             Made with Love
           </span>
           <span class="story__badge">
-            <Icon
-              name="mdi:leaf"
-              size="1.125rem"
-            />
+            <Icon name="mdi:leaf" size="1.125rem" />
             Eco-Friendly
           </span>
         </div>

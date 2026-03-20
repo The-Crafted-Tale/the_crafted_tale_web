@@ -65,14 +65,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '~/types'
-
 const route = useRoute()
 const slug = route.params.slug as string
 
-const { data: product, error } = await useFetch<Product>(`/api/products/${slug}`)
+const { getBySlug, getByCategory } = await useProductStore()
 
-if (error.value || !product.value) {
+const product = computed(() => getBySlug(slug))
+
+if (!product.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Product not found',
@@ -93,12 +93,10 @@ const whatsappUrl = computed(() =>
   contact.whatsappUrlWithMessage(`Hi, I'm interested in "${product.value?.name}". Can you tell me more?`),
 )
 
-const { data: categoryProducts } = await useFetch<Product[]>('/api/products', {
-  query: { category: product.value.category },
-})
-
 const relatedProducts = computed(() =>
-  (categoryProducts.value ?? []).filter((p) => p.slug !== slug).slice(0, 4),
+  getByCategory(product.value?.category)
+    .filter((p) => p.slug !== slug)
+    .slice(0, 4),
 )
 </script>
 
