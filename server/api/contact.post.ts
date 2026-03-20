@@ -23,6 +23,10 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  if (body.message.trim().length > 500) {
+    throw createError({ statusCode: 400, statusMessage: 'Message must be 500 characters or fewer' })
+  }
+
   const supabase = useSupabaseServer()
 
   const { error } = await supabase.from('enquiry').insert({
