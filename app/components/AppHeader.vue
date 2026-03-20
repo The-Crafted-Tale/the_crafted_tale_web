@@ -33,8 +33,11 @@
         <div v-if="drawerOpen" id="mobile-drawer" class="app-header__drawer-overlay" @click.self="drawerOpen = false"
           @keydown="handleDrawerKeydown">
           <nav ref="drawerRef" class="app-header__drawer" aria-label="Mobile navigation">
-            <div class="app-header__drawer-brand">
+            <div class="app-header__drawer-header">
               <AppLogo size="sm" />
+              <button class="app-header__drawer-close" aria-label="Close navigation menu" @click="drawerOpen = false">
+                <Icon name="mdi:close" size="1.5rem" />
+              </button>
             </div>
             <NuxtLink v-for="link in navLinks" :key="link.to" :to="link.to" class="app-header__drawer-link"
               :class="{ 'app-header__drawer-link--active': isActive(link.to) }" @click="drawerOpen = false">
@@ -82,17 +85,29 @@ watch(
   },
 )
 
+let savedScrollY = 0
+
 watch(drawerOpen, (open) => {
   if (typeof document === "undefined") return
 
   if (open) {
+    savedScrollY = window.scrollY
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${savedScrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
     document.body.style.overflow = "hidden"
     nextTick(() => {
-      const firstLink = drawerRef.value?.querySelector("a")
-      firstLink?.focus()
+      const closeBtn = drawerRef.value?.querySelector<HTMLElement>(".app-header__drawer-close")
+      closeBtn?.focus()
     })
   } else {
+    document.body.style.position = ""
+    document.body.style.top = ""
+    document.body.style.left = ""
+    document.body.style.right = ""
     document.body.style.overflow = ""
+    window.scrollTo(0, savedScrollY)
   }
 })
 
@@ -281,13 +296,42 @@ function handleDrawerKeydown(e: KeyboardEvent) {
     box-shadow: -0.25rem 0 1.5rem rgba(0, 0, 0, 0.25);
   }
 
-  &__drawer-brand {
+  &__drawer-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
     padding-bottom: 1.5rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  &__drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+    flex-shrink: 0;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $brand-gold;
+      outline-offset: 2px;
+    }
   }
 
   &__drawer-link {

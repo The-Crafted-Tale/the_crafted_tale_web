@@ -3,11 +3,8 @@
     <div class="app-footer__inner">
       <div class="app-footer__grid">
         <div class="app-footer__brand">
-          <div class="app-footer__logo">
-            <Icon name="mdi:heart-multiple" size="1.25rem" class="app-footer__logo-icon" />
-            <span class="app-footer__logo-text">The Crafted Tale</span>
-          </div>
-          <p class="app-footer__tagline">Handcrafted with love</p>
+          <AppLogo size="sm" />
+          <p class="app-footer__tagline">Your tale, to your loved ones</p>
           <p class="app-footer__desc">Every piece tells a story. We create personalized, handmade gifts that capture
             your most cherished moments and deliver them with care.</p>
         </div>
@@ -150,27 +147,12 @@ async function handleSubscribe() {
   &__brand {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
   }
 
-  &__logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  &__logo-icon {
-    color: $brand-gold;
-  }
-
-  &__logo-text {
-    font-family: $font-cursive;
-    font-size: 1.5rem;
-    color: $brand-gold;
-  }
-
   &__tagline {
-    font-family: $font-cursive;
+    font-family: $font-display;
     font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.7);
     font-style: italic;
@@ -285,7 +267,6 @@ async function handleSubscribe() {
 
     &:hover:not(:disabled) {
       background: $brand-gold-light;
-      transform: translateY(-1px);
     }
 
     &:disabled {

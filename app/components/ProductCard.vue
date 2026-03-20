@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="`/products/${product.slug}`" class="product-card">
     <div class="product-card__image-wrap">
-      <img :src="imgSrc" :alt="product.name" class="product-card__image" loading="lazy" @error="onImgError" />
+      <NuxtImg :src="imgSrc" :alt="product.name" class="product-card__image" loading="lazy" @error="onImgError" />
       <CategoryBadge :category="product.category" class="product-card__badge" />
       <div class="product-card__overlay">
         <span class="product-card__overlay-text">

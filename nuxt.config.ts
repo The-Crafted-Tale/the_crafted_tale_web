@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/icon", "@nuxt/eslint"],
+  modules: ["@nuxt/icon", "@nuxt/eslint", "@nuxt/image"],
   runtimeConfig: {
     supabaseUrl: "",
     supabaseServiceRoleKey: "",

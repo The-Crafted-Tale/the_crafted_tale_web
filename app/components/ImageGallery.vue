@@ -1,14 +1,14 @@
 <template>
   <div class="gallery">
     <div class="gallery__main">
-      <img :src="images[activeIndex] || '/placeholder.svg'" :alt="alt" class="gallery__main-image" />
+      <NuxtImg :src="images[activeIndex] || '/placeholder.svg'" :alt="alt" class="gallery__main-image" />
     </div>
 
     <div v-if="images.length > 1" class="gallery__thumbs">
       <button v-for="(src, index) in images" :key="index"
         :class="['gallery__thumb', { 'gallery__thumb--active': index === activeIndex }]"
         :aria-label="`View image ${index + 1}`" type="button" @click="activeIndex = index">
-        <img :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" />
+        <NuxtImg :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" />
       </button>
     </div>
   </div>

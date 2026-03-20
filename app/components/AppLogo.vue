@@ -1,5 +1,5 @@
 <template>
-  <img :src="logo" alt="The Crafted Tale" :class="['app-logo', `app-logo--${size}`]" />
+  <img :src="logo" alt="The Crafted Tale" :class="['app-logo', `app-logo--${size}`]">
 </template>
 
 <script setup lang="ts">
