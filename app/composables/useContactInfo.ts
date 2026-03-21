@@ -1,7 +1,7 @@
 const CONTACT = {
   email: 'thecraftedtale.shop@gmail.com',
-  phone: '+919494521472',
-  phoneFormatted: '+91 94945 21472',
+  phone: '+919494949494',
+  phoneFormatted: '+91 94949 49494',
 
   instagram: 'https://www.instagram.com/thecraftedtale.shop/',
   instagramHandle: '@thecraftedtale.shop',
