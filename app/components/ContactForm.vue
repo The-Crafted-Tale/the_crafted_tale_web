@@ -1,48 +1,21 @@
 <template>
-  <form
-class="contact-form"
-novalidate
-@submit.prevent="handleSubmit">
-    <AppInput
-v-model="form.name"
-label="Name"
-placeholder="Your name"
-:required="true"
-:error="errors.name" />
+  <form class="contact-form" novalidate @submit.prevent="handleSubmit">
+    <AppInput v-model="form.name" label="Name" placeholder="Your name" :required="true" :error="errors.name" />
 
-    <AppInput
-v-model="form.email"
-label="Email"
-type="email"
-placeholder="you@example.com"
-:error="errors.email" />
+    <AppInput v-model="form.email" label="Email" type="email" placeholder="you@example.com" :error="errors.email" />
 
-    <AppInput
-v-model="form.phone"
-label="Phone"
-type="tel"
-placeholder="+91 98765 43210"
-:error="errors.phone" />
+    <AppInput v-model="form.phone" label="Phone" type="tel" placeholder="+91 98765 43210" :error="errors.phone" />
 
     <div class="contact-form__message-wrap">
-      <AppInput
-v-model="form.message"
-label="Message"
-type="textarea"
-        placeholder="Tell us about what you're looking for..."
-:required="true"
-:error="errors.message" />
+      <AppInput v-model="form.message" label="Message" type="textarea"
+        placeholder="Tell us about what you're looking for..." :required="true" :error="errors.message" />
       <span :class="['contact-form__char-count', { 'contact-form__char-count--over': form.message.length > 500 }]">{{
         form.message.length }} / 500</span>
     </div>
 
-    <AppButton
-type="submit"
-size="lg"
-:loading="loading"
-:disabled="loading">
-Send Message
-</AppButton>
+    <AppButton type="submit" size="lg" :loading="loading" :disabled="loading">
+      Send Message
+    </AppButton>
   </form>
 </template>
 

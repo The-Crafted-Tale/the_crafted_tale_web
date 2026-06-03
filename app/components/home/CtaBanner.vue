@@ -11,22 +11,12 @@
         care.
       </p>
       <div class="cta-banner__actions">
-        <AppButton
-          variant="gold"
-          size="lg"
-          href="/contact">
-          <Icon
-            name="mdi:heart"
-            size="1rem" />
+        <AppButton variant="gold" size="lg" href="/contact">
+          <Icon name="mdi:heart" size="1rem" />
           Start Your Order
         </AppButton>
-        <AppButton
-          variant="secondary"
-          size="lg"
-          :href="contact.whatsappUrl">
-          <Icon
-            name="mdi:whatsapp"
-            size="1.125rem" />
+        <AppButton variant="secondary" size="lg" :href="contact.whatsappUrl">
+          <Icon name="mdi:whatsapp" size="1.125rem" />
           Chat with Us
         </AppButton>
       </div>
@@ -43,12 +33,10 @@ const contact = useContactInfo()
   position: relative;
   padding: 5rem 1.5rem;
   text-align: center;
-  background: radial-gradient(
-    ellipse at center,
-    $brand-crimson 0%,
-    $brand-crimson-dark 60%,
-    $brand-maroon 100%
-  );
+  background: radial-gradient(ellipse at center,
+      $brand-crimson 0%,
+      $brand-crimson-dark 60%,
+      $brand-maroon 100%);
   overflow: hidden;
 
   &__content {

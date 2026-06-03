@@ -1,31 +1,18 @@
 <template>
-  <component
-:is="href ? NuxtLink : 'button'"
-:to="href && !isExternal ? href : undefined"
-    :href="href && isExternal ? href : undefined"
-:target="href && isExternal ? '_blank' : undefined"
-    :rel="href && isExternal ? 'noopener noreferrer' : undefined"
-:disabled="disabled || loading || undefined"
+  <component :is="href ? NuxtLink : 'button'" :to="href && !isExternal ? href : undefined"
+    :href="href && isExternal ? href : undefined" :target="href && isExternal ? '_blank' : undefined"
+    :rel="href && isExternal ? 'noopener noreferrer' : undefined" :disabled="disabled || loading || undefined"
     :class="['app-btn', `app-btn--${variant}`, `app-btn--${size}`]">
-    <span
-v-if="loading"
-class="app-btn__spinner"
-aria-hidden="true" />
+    <span v-if="loading" class="app-btn__spinner" aria-hidden="true" />
 
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
-import { NuxtLink } from '#components'
+import { NuxtLink } from '#components';
 
-interface Props {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'gold'
-  size?: 'sm' | 'md' | 'lg'
-  href?: string
-  disabled?: boolean
-  loading?: boolean
-}
+defineOptions({ name: 'AppButton' })
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
@@ -34,6 +21,14 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   href: undefined,
 })
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'gold'
+  size?: 'sm' | 'md' | 'lg'
+  href?: string
+  disabled?: boolean
+  loading?: boolean
+}
 
 const isExternal = computed(() => props.href?.startsWith('http') || props.href?.startsWith('//'))
 </script>
