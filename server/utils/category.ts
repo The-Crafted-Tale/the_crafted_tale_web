@@ -5,19 +5,19 @@
  */
 
 const DISPLAY_TO_SNAKE: Record<string, string> = {
-   "ready made": "ready_made",
-   "semi custom": "semi_custom",
-   "custom": "custom",
-   "ready_made": "ready_made",
-   "semi_custom": "semi_custom",
+  "ready made": "ready_made",
+  "semi custom": "semi_custom",
+  "custom": "custom",
+  "ready_made": "ready_made",
+  "semi_custom": "semi_custom",
 }
 
 export const normalizeCategory = (dbCategory: string): string => DISPLAY_TO_SNAKE[dbCategory.toLowerCase()] ?? dbCategory
 
 const SNAKE_TO_DB_VALUES: Record<string, string[]> = {
-   ready_made: ["ready_made", "Ready Made"],
-   semi_custom: ["semi_custom", "Semi Custom"],
-   custom: ["custom", "Custom"],
+  ready_made: ["ready_made", "Ready Made"],
+  semi_custom: ["semi_custom", "Semi Custom"],
+  custom: ["custom", "Custom"],
 }
 
 export const categoryDbValues = (frontendCategory: string): string[] => SNAKE_TO_DB_VALUES[frontendCategory] ?? [frontendCategory]

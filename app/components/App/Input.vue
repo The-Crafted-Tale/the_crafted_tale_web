@@ -1,54 +1,26 @@
 <template>
   <div class="app-input">
-    <label
-v-if="label"
-:for="uid"
-class="app-input__label">
+    <label v-if="label" :for="uid" class="app-input__label">
       {{ label }}
     </label>
 
-    <textarea
-v-if="type === 'textarea'"
-:id="uid"
-:value="modelValue"
-:placeholder="placeholder"
-:required="required"
-      :aria-invalid="!!error || undefined"
-:aria-describedby="error ? `${uid}-error` : undefined"
-      :class="['app-input__field', 'app-input__field--textarea', { 'app-input__field--error': error }]"
-rows="4"
+    <textarea v-if="type === 'textarea'" :id="uid" :value="modelValue" :placeholder="placeholder" :required="required"
+      :aria-invalid="!!error || undefined" :aria-describedby="error ? `${uid}-error` : undefined"
+      :class="['app-input__field', 'app-input__field--textarea', { 'app-input__field--error': error }]" rows="4"
       @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)" />
 
-    <input
-v-else
-:id="uid"
-:type="type"
-:value="modelValue"
-:placeholder="placeholder"
-:required="required"
-      :aria-invalid="!!error || undefined"
-:aria-describedby="error ? `${uid}-error` : undefined"
+    <input v-else :id="uid" :type="type" :value="modelValue" :placeholder="placeholder" :required="required"
+      :aria-invalid="!!error || undefined" :aria-describedby="error ? `${uid}-error` : undefined"
       :class="['app-input__field', { 'app-input__field--error': error }]"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
-    <p
-v-if="error"
-:id="`${uid}-error`"
-role="alert"
-class="app-input__error">
+    <p v-if="error" :id="`${uid}-error`" role="alert" class="app-input__error">
       {{ error }}
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
-interface Props {
-  label?: string
-  type?: 'text' | 'email' | 'tel' | 'textarea'
-  modelValue?: string
-  placeholder?: string
-  required?: boolean
-  error?: string
-}
+defineOptions({ name: 'AppInput' })
 
 withDefaults(defineProps<Props>(), {
   type: 'text',
@@ -62,6 +34,15 @@ withDefaults(defineProps<Props>(), {
 defineEmits<{
   'update:modelValue': [value: string]
 }>()
+
+interface Props {
+  label?: string
+  type?: 'text' | 'email' | 'tel' | 'textarea'
+  modelValue?: string
+  placeholder?: string
+  required?: boolean
+  error?: string
+}
 
 const uid = useId()
 </script>

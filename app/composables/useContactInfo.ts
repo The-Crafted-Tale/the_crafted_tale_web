@@ -1,34 +1,34 @@
 const CONTACT = {
-   email: "thecraftedtale.shop@gmail.com",
-   phone: "+917709560271",
-   phoneFormatted: "+91 77095 60271",
+  email: "thecraftedtale.shop@gmail.com",
+  phone: "+917709560271",
+  phoneFormatted: "+91 77095 60271",
 
-   instagram: "https://www.instagram.com/thecraftedtale.shop/",
-   instagramHandle: "@thecraftedtale.shop",
-   facebook: "https://www.facebook.com/thecraftedtale.shop",
-   youtube: "https://youtube.com/thecraftedtale.shop",
+  instagram: "https://www.instagram.com/thecraftedtale.shop/",
+  instagramHandle: "@thecraftedtale.shop",
+  facebook: "https://www.facebook.com/thecraftedtale.shop",
+  youtube: "https://youtube.com/thecraftedtale.shop",
 
-   get mailtoUrl() {
+  get mailtoUrl() {
 
-      return `mailto:${this.email}`
+    return `mailto:${this.email}`
 
-   },
-   get telUrl() {
+  },
+  get telUrl() {
 
-      return `tel:${this.phone}`
+    return `tel:${this.phone}`
 
-   },
-   get whatsappUrl() {
+  },
+  get whatsappUrl() {
 
-      return `https://wa.me/${this.phone.replace("+", "")}`
+    return `https://wa.me/${this.phone.replace("+", "")}`
 
-   },
+  },
 } as const
 
 export const useContactInfo = (): typeof CONTACT & { whatsappUrlWithMessage: (message: string) => string } => {
 
-   const whatsappUrlWithMessage = (message: string): string => `${CONTACT.whatsappUrl}?text=${encodeURIComponent(message)}`
+  const whatsappUrlWithMessage = (message: string): string => `${CONTACT.whatsappUrl}?text=${encodeURIComponent(message)}`
 
-   return { ...CONTACT, whatsappUrlWithMessage }
+  return { ...CONTACT, whatsappUrlWithMessage }
 
 }

@@ -1,7 +1,7 @@
 export interface ContactPayload {
-   name: string
-   email: string
-   phone: string
-   message: string
-   productId?: string
+  name: string
+  email: string
+  phone: string
+  message: string
+  productId?: string
 }

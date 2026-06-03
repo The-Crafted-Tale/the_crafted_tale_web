@@ -1,91 +1,91 @@
 interface RateLimitEntry {
-   count: number
-   resetAt: number
+  count: number
+  resetAt: number
 }
 
 export class RateLimiter {
 
-   private store = new Map<string, RateLimitEntry>()
-   private maxRequests: number
-   private windowMs: number
-   private cleanupInterval: ReturnType<typeof setInterval>
+  private store = new Map<string, RateLimitEntry>()
+  private maxRequests: number
+  private windowMs: number
+  private cleanupInterval: ReturnType<typeof setInterval>
 
-   constructor(maxRequests: number, windowMs: number) {
+  constructor(maxRequests: number, windowMs: number) {
 
-      this.maxRequests = maxRequests
-      this.windowMs = windowMs
+    this.maxRequests = maxRequests
+    this.windowMs = windowMs
 
-      this.cleanupInterval = setInterval(() => this.cleanup(), windowMs * 2)
+    this.cleanupInterval = setInterval(() => this.cleanup(), windowMs * 2)
 
-      if (this.cleanupInterval.unref) {
+    if (this.cleanupInterval.unref) {
 
-         this.cleanupInterval.unref()
+      this.cleanupInterval.unref()
 
-      }
+    }
 
-   }
+  }
 
-   check(key: string): { allowed: boolean, retryAfterMs: number } {
+  check(key: string): { allowed: boolean, retryAfterMs: number } {
 
-      const now = Date.now()
+    const now = Date.now()
 
-      const entry = this.store.get(key)
+    const entry = this.store.get(key)
 
-      if (!entry || now >= entry.resetAt) {
+    if (!entry || now >= entry.resetAt) {
 
-         this.store.set(key, { count: 1, resetAt: now + this.windowMs })
+      this.store.set(key, { count: 1, resetAt: now + this.windowMs })
 
-         return { allowed: true, retryAfterMs: 0 }
+      return { allowed: true, retryAfterMs: 0 }
 
-      }
+    }
 
-      if (entry.count < this.maxRequests) {
+    if (entry.count < this.maxRequests) {
 
-         entry.count++
+      entry.count++
 
-         return { allowed: true, retryAfterMs: 0 }
+      return { allowed: true, retryAfterMs: 0 }
 
-      }
+    }
 
-      return { allowed: false, retryAfterMs: entry.resetAt - now }
+    return { allowed: false, retryAfterMs: entry.resetAt - now }
 
-   }
+  }
 
-   private cleanup() {
+  private cleanup() {
 
-      const now = Date.now()
+    const now = Date.now()
 
-      for (const [key, entry] of this.store) {
+    for (const [key, entry] of this.store) {
 
-         if (now >= entry.resetAt) {
+      if (now >= entry.resetAt) {
 
-            this.store.delete(key)
-
-         }
+        this.store.delete(key)
 
       }
 
-   }
+    }
+
+  }
 
 }
 
 const limiters = new Map<string, RateLimiter>()
 
 export const useRateLimiter = (
-   name: string,
-   maxRequests: number,
-   windowMs: number,
+  name: string,
+  maxRequests: number,
+  windowMs: number,
 ): RateLimiter => {
 
-   let limiter = limiters.get(name)
+  let limiter = limiters.get(name)
 
-   if (!limiter) {
+  if (!limiter) {
 
-      limiter = new RateLimiter(maxRequests, windowMs)
-      limiters.set(name, limiter)
+    limiter = new RateLimiter(maxRequests, windowMs)
+    limiters.set(name, limiter)
 
-   }
+  }
 
-   return limiter
+  return limiter
 
 }

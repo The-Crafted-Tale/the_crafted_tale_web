@@ -4,24 +4,24 @@ let _client: SupabaseClient | null = null
 
 export const useSupabaseServer = (): SupabaseClient => {
 
-   if (_client) {
+  if (_client) {
 
-      return _client
+    return _client
 
-   }
+  }
 
-   const { supabaseUrl, supabaseServiceRoleKey } = useRuntimeConfig()
+  const { supabaseUrl, supabaseServiceRoleKey } = useRuntimeConfig()
 
-   if (!supabaseUrl || !supabaseServiceRoleKey) {
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
 
-      throw new Error(
-         "Missing NUXT_SUPABASE_URL or NUXT_SUPABASE_SERVICE_ROLE_KEY environment variables",
-      )
+    throw new Error(
+      "Missing NUXT_SUPABASE_URL or NUXT_SUPABASE_SERVICE_ROLE_KEY environment variables",
+    )
 
-   }
+  }
 
-   _client = createClient(supabaseUrl, supabaseServiceRoleKey)
+  _client = createClient(supabaseUrl, supabaseServiceRoleKey)
 
-   return _client
+  return _client
 
 }

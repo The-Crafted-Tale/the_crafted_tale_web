@@ -1,38 +1,38 @@
-import { normalizeCategory, categoryDbValues } from "../utils/category"
+import { categoryDbValues, normalizeCategory } from "../utils/category"
 import { useSupabaseServer } from "../utils/supabase"
 
 export default defineEventHandler(async (event) => {
 
-   const { category } = getQuery<{ category?: string }>(event)
+  const { category } = getQuery<{ category?: string }>(event)
 
-   const supabase = useSupabaseServer()
+  const supabase = useSupabaseServer()
 
-   let query = supabase
-      .from("product")
-      .select("id, name, slug, description, price, category, images, display_order")
-      .eq("is_active", true)
-      .order("display_order")
+  let query = supabase
+    .from("product")
+    .select("id, name, slug, description, price, category, images, display_order")
+    .eq("is_active", true)
+    .order("display_order")
 
-   if (category) {
+  if (category) {
 
-      query = query.in("category", categoryDbValues(category))
+    query = query.in("category", categoryDbValues(category))
 
-   }
+  }
 
-   const { data, error } = await query
+  const { data, error } = await query
 
-   if (error) {
+  if (error) {
 
-      throw createError({
-         statusCode: 500,
-         statusMessage: "Failed to fetch products",
-      })
+    throw createError({
+      statusCode: 500,
+      statusMessage: "Failed to fetch products",
+    })
 
-   }
+  }
 
-   return (data ?? []).map((p: { category: string }) => ({
-      ...p,
-      category: normalizeCategory(p.category),
-   }))
+  return (data ?? []).map((p: { category: string }) => ({
+    ...p,
+    category: normalizeCategory(p.category),
+  }))
 
 })

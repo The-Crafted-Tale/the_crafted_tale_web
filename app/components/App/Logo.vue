@@ -1,20 +1,19 @@
 <template>
-  <img
-:src="logo"
-alt="The Crafted Tale"
-:class="['app-logo', `app-logo--${size}`]" />
+  <img :src="logo" alt="The Crafted Tale" :class="['app-logo', `app-logo--${size}`]" />
 </template>
 
 <script setup lang="ts">
-import logo from '~/assets/images/logo.svg'
+import logo from '~/assets/images/logo.svg';
 
-interface Props {
-  size?: 'sm' | 'md' | 'lg'
-}
+defineOptions({ name: 'AppLogo' })
 
 withDefaults(defineProps<Props>(), {
   size: 'md',
 })
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg'
+}
 </script>
 
 <style lang="scss" scoped>

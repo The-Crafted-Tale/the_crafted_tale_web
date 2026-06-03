@@ -8,23 +8,17 @@
         <span class="section-title__accent">Works</span>
       </h2>
       <div class="how-it-works__steps">
-        <div
-          v-for="(step, idx) in steps"
-          :key="step.title"
-          class="step">
+        <div v-for="(step, idx) in steps" :key="step.title" class="step">
           <div class="step__icon-wrap">
-            <Icon
-              :name="step.icon"
-              size="1.75rem"
-              class="step__icon" />
+            <Icon :name="step.icon" size="1.75rem" class="step__icon" />
             <span class="step__number">{{ idx + 1 }}</span>
           </div>
           <h3 class="step__title">
-{{ step.title }}
-</h3>
+            {{ step.title }}
+          </h3>
           <p class="step__desc">
-{{ step.desc }}
-</p>
+            {{ step.desc }}
+          </p>
         </div>
       </div>
     </div>
@@ -56,12 +50,10 @@ const steps = [
   position: relative;
   padding: 5rem 1.5rem;
   text-align: center;
-  background: radial-gradient(
-    ellipse at center,
-    $brand-crimson 0%,
-    $brand-crimson-dark 60%,
-    $brand-maroon 100%
-  );
+  background: radial-gradient(ellipse at center,
+      $brand-crimson 0%,
+      $brand-crimson-dark 60%,
+      $brand-maroon 100%);
   overflow: hidden;
 
   &__inner {
