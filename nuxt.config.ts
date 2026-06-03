@@ -26,8 +26,10 @@ export default defineNuxtConfig({
       title: "The Crafted Tale",
       meta: [
         { "http-equiv": "content-language", "content": "en" },
-        { name: "description", content: "The Crafted Tale - Your tale, to your loved ones" },
+        { name: "description", content: "The Crafted Tale — bespoke handmade gifts for every occasion. Custom, semi-custom, and ready-made creations crafted with love and delivered with care across India." },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#8B1C1C" },
+        { name: "robots", content: "index, follow" },
       ],
       script: [
         {
@@ -40,6 +42,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.ico" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         {
@@ -83,5 +86,15 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ["images.unsplash.com"],
+  },
+  sitemap: {
+    urls: [
+      { loc: "/", changefreq: "daily", priority: 1.0 },
+      { loc: "/products", changefreq: "daily", priority: 0.9 },
+      { loc: "/about", changefreq: "monthly", priority: 0.6 },
+      { loc: "/contact", changefreq: "monthly", priority: 0.5 },
+      { loc: "/privacy", changefreq: "yearly", priority: 0.2 },
+      { loc: "/terms", changefreq: "yearly", priority: 0.2 },
+    ],
   },
 })

@@ -25,8 +25,12 @@ useSeoMeta({
   ogSiteName: 'The Crafted Tale',
   ogType: 'website',
   ogImage: `${url.origin}/og-image.png`,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogLocale: 'en_IN',
   twitterCard: 'summary_large_image',
   twitterImage: `${url.origin}/og-image.png`,
+  twitterSite: '@thecraftedtale.shop',
 })
 </script>
 

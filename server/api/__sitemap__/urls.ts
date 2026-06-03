@@ -12,6 +12,8 @@ export default defineSitemapEventHandler(async () => {
     asSitemapUrl({
       loc: `/products/${product.slug}`,
       lastmod: product.updated_at,
+      changefreq: "weekly",
+      priority: 0.8,
     }),
   )
 
