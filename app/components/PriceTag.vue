@@ -12,9 +12,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const formatted = computed(() => {
-  return new Intl.NumberFormat("en-IN").format(props.amount)
-})
+const formatted = computed(() => new Intl.NumberFormat('en-IN').format(props.amount))
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <PageHero label="YOUR PRIVACY MATTERS" title="Privacy" accent="Policy"
-      description="We value your trust and are committed to protecting the personal information you share with us." />
+   <div>
+      <PageHero label="YOUR PRIVACY MATTERS" title="Privacy" accent="Policy"
+         description="We value your trust and are committed to protecting the personal information you share with us." />
 
-    <LegalPageBody :last-updated="lastUpdated" :sections="sections" contact-icon="mdi:email-heart-outline"
-      contact-title="Questions about your privacy?" />
-  </div>
+      <LegalPageBody :last-updated="lastUpdated" :sections="sections" contact-icon="mdi:email-heart-outline"
+         contact-title="Questions about your privacy?" />
+   </div>
 </template>
 
 <script setup lang="ts">
@@ -16,14 +16,14 @@ const url = useRequestURL()
 useSeoMeta({
   title: 'Privacy Policy | The Crafted Tale',
   description:
-    'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
+      'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
   ogTitle: 'Privacy Policy | The Crafted Tale',
   ogDescription:
-    'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
+      'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
   ogUrl: url.href,
   twitterTitle: 'Privacy Policy | The Crafted Tale',
   twitterDescription:
-    'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
+      'Learn how The Crafted Tale collects, uses, and protects your personal information when you visit our website.',
 })
 
 const lastUpdated = 'March 20, 2026'

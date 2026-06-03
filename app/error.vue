@@ -3,7 +3,9 @@
     <FloatingHearts :count="14" />
 
     <div class="error-page__content">
-      <p class="error-page__code">{{ error?.statusCode || 500 }}</p>
+      <p class="error-page__code">
+{{ error?.statusCode || 500 }}
+</p>
 
       <h1 class="error-page__title">
         {{ is404 ? "This Page Wandered" : "Something Went" }}
@@ -20,19 +22,33 @@
       </p>
 
       <div class="error-page__actions">
-        <AppButton variant="gold" size="lg" @click="handleClearError('/')">
-          <Icon name="mdi:home-heart" size="1.125rem" />
+        <AppButton
+variant="gold"
+size="lg"
+@click="handleClearError('/')">
+          <Icon
+name="mdi:home-heart"
+size="1.125rem" />
           Back to Home
         </AppButton>
-        <AppButton variant="secondary" size="lg" @click="handleClearError('/products')">
-          <Icon name="mdi:sparkles" size="1.125rem" />
+        <AppButton
+variant="secondary"
+size="lg"
+@click="handleClearError('/products')">
+          <Icon
+name="mdi:sparkles"
+size="1.125rem" />
           Explore Collection
         </AppButton>
       </div>
 
       <p class="error-page__footer-note">
         Need help?
-        <a :href="contact.whatsappUrl" target="_blank" rel="noopener noreferrer" class="error-page__link">
+        <a
+:href="contact.whatsappUrl"
+target="_blank"
+rel="noopener noreferrer"
+class="error-page__link">
           Chat with us on WhatsApp
         </a>
       </p>
@@ -42,6 +58,7 @@
 
 <script setup lang="ts">
 const contact = useContactInfo()
+
 const error = useError()
 
 const is404 = computed(() => error.value?.statusCode === 404)

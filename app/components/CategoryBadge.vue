@@ -4,15 +4,15 @@
 
 <script setup lang="ts">
 interface Props {
-  category: "custom" | "semi_custom" | "ready_made"
+  category: 'custom' | 'semi_custom' | 'ready_made'
 }
 
 const props = defineProps<Props>()
 
-const labelMap: Record<Props["category"], string> = {
-  custom: "Custom",
-  semi_custom: "Semi Custom",
-  ready_made: "Ready Made",
+const labelMap: Record<Props['category'], string> = {
+  custom: 'Custom',
+  semi_custom: 'Semi Custom',
+  ready_made: 'Ready Made',
 }
 
 const displayLabel = computed(() => labelMap[props.category])

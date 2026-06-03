@@ -1,6 +1,12 @@
 <template>
-  <div class="floating-hearts" aria-hidden="true">
-    <span v-for="heart in hearts" :key="heart.id" class="floating-hearts__heart" :style="heart.style">&#10084;</span>
+  <div
+class="floating-hearts"
+aria-hidden="true">
+    <span
+v-for="heart in hearts"
+:key="heart.id"
+class="floating-hearts__heart"
+:style="heart.style">&#10084;</span>
   </div>
 </template>
 

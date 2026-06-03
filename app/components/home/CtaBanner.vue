@@ -14,23 +14,19 @@
         <AppButton
           variant="gold"
           size="lg"
-          href="/contact"
-        >
+          href="/contact">
           <Icon
             name="mdi:heart"
-            size="1rem"
-          />
+            size="1rem" />
           Start Your Order
         </AppButton>
         <AppButton
           variant="secondary"
           size="lg"
-          :href="contact.whatsappUrl"
-        >
+          :href="contact.whatsappUrl">
           <Icon
             name="mdi:whatsapp"
-            size="1.125rem"
-          />
+            size="1.125rem" />
           Chat with Us
         </AppButton>
       </div>

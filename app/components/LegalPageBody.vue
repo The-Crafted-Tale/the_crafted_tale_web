@@ -5,19 +5,33 @@
         Last updated: {{ lastUpdated }}
       </p>
 
-      <div v-for="section in sections" :key="section.title" class="legal-body__section">
+      <div
+v-for="section in sections"
+:key="section.title"
+class="legal-body__section">
         <div class="legal-body__section-header">
           <div class="legal-body__section-icon">
-            <Icon :name="section.icon" size="1.25rem" />
+            <Icon
+:name="section.icon"
+size="1.25rem" />
           </div>
-          <h2 class="legal-body__section-title">{{ section.title }}</h2>
+          <h2 class="legal-body__section-title">
+{{ section.title }}
+</h2>
         </div>
         <div class="legal-body__section-body">
-          <p v-for="(paragraph, idx) in section.paragraphs" :key="idx" class="legal-body__text">
+          <p
+v-for="(paragraph, idx) in section.paragraphs"
+:key="idx"
+class="legal-body__text">
             {{ paragraph }}
           </p>
-          <ul v-if="section.list" class="legal-body__list">
-            <li v-for="(item, idx) in section.list" :key="idx">
+          <ul
+v-if="section.list"
+class="legal-body__list">
+            <li
+v-for="(item, idx) in section.list"
+:key="idx">
               {{ item }}
             </li>
           </ul>
@@ -25,9 +39,13 @@
       </div>
 
       <div class="legal-body__contact-box">
-        <Icon :name="contactIcon" size="1.5rem" />
+        <Icon
+:name="contactIcon"
+size="1.5rem" />
         <div>
-          <h3 class="legal-body__contact-title">{{ contactTitle }}</h3>
+          <h3 class="legal-body__contact-title">
+{{ contactTitle }}
+</h3>
           <p class="legal-body__contact-desc">
             Reach out to us at
             <a :href="contact.mailtoUrl">{{ contact.email }}</a>

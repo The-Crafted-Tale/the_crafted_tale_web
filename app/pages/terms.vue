@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <PageHero label="OUR AGREEMENT" title="Terms of" accent="Service"
-      description="Please read these terms carefully before using our website or placing an order with The Crafted Tale." />
+   <div>
+      <PageHero label="OUR AGREEMENT" title="Terms of" accent="Service"
+         description="Please read these terms carefully before using our website or placing an order with The Crafted Tale." />
 
-    <LegalPageBody :last-updated="lastUpdated" :sections="sections" contact-icon="mdi:chat-question-outline"
-      contact-title="Have questions about these terms?" />
-  </div>
+      <LegalPageBody :last-updated="lastUpdated" :sections="sections" contact-icon="mdi:chat-question-outline"
+         contact-title="Have questions about these terms?" />
+   </div>
 </template>
 
 <script setup lang="ts">
@@ -16,14 +16,14 @@ const url = useRequestURL()
 useSeoMeta({
   title: 'Terms of Service | The Crafted Tale',
   description:
-    'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
+      'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
   ogTitle: 'Terms of Service | The Crafted Tale',
   ogDescription:
-    'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
+      'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
   ogUrl: url.href,
   twitterTitle: 'Terms of Service | The Crafted Tale',
   twitterDescription:
-    'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
+      'Read the terms and conditions for using The Crafted Tale website and placing orders for our handmade gifts.',
 })
 
 const lastUpdated = 'March 20, 2026'

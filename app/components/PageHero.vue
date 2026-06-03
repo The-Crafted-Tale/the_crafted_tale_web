@@ -7,7 +7,9 @@
         {{ title }}
         <span class="section-title__accent">{{ accent }}</span>
       </h1>
-      <p class="page-hero__desc">{{ description }}</p>
+      <p class="page-hero__desc">
+{{ description }}
+</p>
     </div>
   </section>
 </template>

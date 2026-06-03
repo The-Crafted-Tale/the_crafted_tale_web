@@ -7,13 +7,23 @@
         The Crafted Tale
         <span class="hero__title-accent">One Gift at a Time</span>
       </h1>
-      <p class="hero__desc">Handmade with love, delivered with care</p>
+      <p class="hero__desc">
+Handmade with love, delivered with care
+</p>
       <div class="hero__actions">
-        <AppButton variant="gold" size="lg" href="/products">
-          <Icon name="mdi:sparkles" size="1.125rem" />
+        <AppButton
+variant="gold"
+size="lg"
+href="/products">
+          <Icon
+name="mdi:sparkles"
+size="1.125rem" />
           Explore Our Collection
         </AppButton>
-        <AppButton variant="secondary" size="lg" href="/contact">
+        <AppButton
+variant="secondary"
+size="lg"
+href="/contact">
           Get in Touch
         </AppButton>
       </div>

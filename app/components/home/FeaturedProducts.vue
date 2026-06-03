@@ -11,17 +11,29 @@
       </p>
       <template v-if="products?.length">
         <div class="featured__grid">
-          <ProductCard v-for="product in products" :key="product.slug" :product="product" />
+          <ProductCard
+v-for="product in products"
+:key="product.slug"
+:product="product" />
         </div>
         <div class="featured__cta">
-          <AppButton variant="primary" size="lg" href="/products">
+          <AppButton
+variant="primary"
+size="lg"
+href="/products">
             View All Products
-            <Icon name="mdi:arrow-right" size="1rem" />
+            <Icon
+name="mdi:arrow-right"
+size="1rem" />
           </AppButton>
         </div>
       </template>
-      <div v-else class="featured__empty">
-        <Icon name="mdi:basket-outline" size="3rem" />
+      <div
+v-else
+class="featured__empty">
+        <Icon
+name="mdi:basket-outline"
+size="3rem" />
         <p>Our shelves are being stocked with new handcrafted creations. Check back soon!</p>
       </div>
     </div>

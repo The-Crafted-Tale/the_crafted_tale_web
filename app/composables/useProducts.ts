@@ -1,41 +1,56 @@
-import type { Product, ProductCategory } from '~/types'
+import type { Product, ProductCategory } from "~/types"
 
-export async function useProductStore() {
-  const nuxtApp = useNuxtApp()
+interface IUseProductStore {
+   products: Ref<Product[]>
+   getByCategory: (category?: ProductCategory) => Product[]
+   getBySlug: (slug: string) => Product | null
+   getFeatured: (count?: number) => Product[]
+   refresh: () => Promise<void>
+}
 
-  const { data: products } = await useAsyncData(
-    'all-products',
-    () => $fetch<Product[]>('/api/products'),
-    {
-      default: () => [] as Product[],
-      getCachedData: (key) =>
-        nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
-    },
-  )
+export const useProductStore = async (): Promise<IUseProductStore> => {
 
-  function getByCategory(category?: ProductCategory): Product[] {
-    if (!category) return products.value
-    return products.value.filter((p) => p.category === category)
-  }
+   const nuxtApp = useNuxtApp()
 
-  function getBySlug(slug: string): Product | null {
-    return products.value.find((p) => p.slug === slug) ?? null
-  }
+   const { data: products } = await useAsyncData(
+      "all-products",
+      () => $fetch<Product[]>("/api/products"),
+      {
+         default: () => [] as Product[],
+         getCachedData: (key) =>
+            nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
+      },
+   )
 
-  function getFeatured(count = 4): Product[] {
-    return products.value.slice(0, count)
-  }
+   const getByCategory = (category?: ProductCategory): Product[] => {
 
-  async function refresh() {
-    nuxtApp.payload.data['all-products'] = undefined
-    products.value = await $fetch<Product[]>('/api/products')
-  }
+      if (!category) {
 
-  return {
-    products,
-    getByCategory,
-    getBySlug,
-    getFeatured,
-    refresh,
-  }
+         return products.value
+
+      }
+
+      return products.value.filter((p) => p.category === category)
+
+   }
+
+   const getBySlug = (slug: string): Product | null => products.value.find((p) => p.slug === slug) ?? null
+
+   const getFeatured = (count = 4): Product[] => products.value.slice(0, count)
+
+   const refresh = async (): Promise<void> => {
+
+      nuxtApp.payload.data["all-products"] = undefined
+      products.value = await $fetch<Product[]>("/api/products")
+
+   }
+
+   return {
+      products,
+      getByCategory,
+      getBySlug,
+      getFeatured,
+      refresh,
+   }
+
 }

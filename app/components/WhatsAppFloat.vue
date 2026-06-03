@@ -1,15 +1,23 @@
 <template>
-  <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <Icon name="mdi:whatsapp" size="1.75rem" />
+  <a
+:href="whatsappUrl"
+target="_blank"
+rel="noopener noreferrer"
+class="whatsapp-float"
+aria-label="Chat on WhatsApp">
+    <Icon
+name="mdi:whatsapp"
+size="1.75rem" />
   </a>
 </template>
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<{ message?: string }>(), {
-  message: "Hi, I'm interested in your products!",
+  message: 'Hi, I\'m interested in your products!',
 })
 
 const contact = useContactInfo()
+
 const whatsappUrl = computed(() => contact.whatsappUrlWithMessage(props.message))
 </script>
 

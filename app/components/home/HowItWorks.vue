@@ -11,18 +11,20 @@
         <div
           v-for="(step, idx) in steps"
           :key="step.title"
-          class="step"
-        >
+          class="step">
           <div class="step__icon-wrap">
             <Icon
               :name="step.icon"
               size="1.75rem"
-              class="step__icon"
-            />
+              class="step__icon" />
             <span class="step__number">{{ idx + 1 }}</span>
           </div>
-          <h3 class="step__title">{{ step.title }}</h3>
-          <p class="step__desc">{{ step.desc }}</p>
+          <h3 class="step__title">
+{{ step.title }}
+</h3>
+          <p class="step__desc">
+{{ step.desc }}
+</p>
         </div>
       </div>
     </div>

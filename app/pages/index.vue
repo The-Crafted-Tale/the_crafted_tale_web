@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 const url = useRequestURL()
+
 const contact = useContactInfo()
 
 useSeoMeta({

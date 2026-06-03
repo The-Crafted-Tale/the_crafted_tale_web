@@ -1,8 +1,18 @@
 <template>
-  <nav class="social" aria-label="Social links">
-    <a v-for="link in socialLinks" :key="link.name" :href="link.href" target="_blank" rel="noopener noreferrer"
-      class="social__link" :aria-label="link.label">
-      <Icon :name="link.icon" size="1.25rem" />
+  <nav
+class="social"
+aria-label="Social links">
+    <a
+v-for="link in socialLinks"
+:key="link.name"
+:href="link.href"
+target="_blank"
+rel="noopener noreferrer"
+      class="social__link"
+:aria-label="link.label">
+      <Icon
+:name="link.icon"
+size="1.25rem" />
     </a>
   </nav>
 </template>
@@ -12,21 +22,21 @@ const contact = useContactInfo()
 
 const socialLinks = [
   {
-    name: "instagram",
-    label: "Instagram",
-    icon: "mdi:instagram",
+    name: 'instagram',
+    label: 'Instagram',
+    icon: 'mdi:instagram',
     href: contact.instagram,
   },
   {
-    name: "facebook",
-    label: "Facebook",
-    icon: "mdi:facebook",
+    name: 'facebook',
+    label: 'Facebook',
+    icon: 'mdi:facebook',
     href: contact.facebook,
   },
   {
-    name: "youtube",
-    label: "YouTube",
-    icon: "mdi:youtube",
+    name: 'youtube',
+    label: 'YouTube',
+    icon: 'mdi:youtube',
     href: contact.youtube,
   },
 ]
