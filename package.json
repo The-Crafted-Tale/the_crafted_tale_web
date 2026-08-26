@@ -9,7 +9,7 @@
     "generate": "bun --bun nuxt generate",
     "preview": "bun --bun nuxt preview",
     "postinstall": "bun --bun nuxt prepare",
-    "prepare": "commitguard install",
+    "prepare": "commitguard install || true",
     "lint": "bunx --bun stylelint \"**/*.scss\"; bunx --bun eslint .",
     "lint:style": "bunx --bun stylelint \"**/*.scss\"",
     "lint:fix": "bunx --bun stylelint --fix \"**/*.scss\"; bunx --bun eslint . --fix",
