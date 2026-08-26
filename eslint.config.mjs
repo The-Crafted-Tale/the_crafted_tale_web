@@ -350,6 +350,16 @@ export default withNuxt(
     },
   },
 
+  // OG image templates are named by nuxt-og-image convention:
+  // `<Name>.<renderer>.vue`, e.g. `Default.takumi.vue`. The filename is what
+  // `defineOgImageComponent("Default")` resolves, so it cannot be multi-word.
+  {
+    files: ["app/components/OgImage/**/*.vue"],
+    rules: {
+      "vue/multi-word-component-names": "off",
+    },
+  },
+
   // ─── 8. NUXT OVERRIDES — relax certain rules for Nuxt-specific files ─────
   {
     files: [
