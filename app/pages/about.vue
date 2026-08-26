@@ -140,50 +140,31 @@ import placeholderStory from '~/assets/images/placeholder-story.svg'
 
 const contact = useContactInfo()
 
-const url = useRequestURL()
-
 const aboutDescription
   = 'Learn the story behind The Crafted Tale — a handmade gifts studio in India creating bespoke personalized gifts for weddings, birthdays, and every heartfelt occasion.'
 
 useSeoMeta({
-  title: 'Our Story | The Crafted Tale — Handmade Gift Studio',
+  title: 'Our Story',
   description: aboutDescription,
   keywords: 'handmade gift studio India, bespoke gifts maker, personalized gift creator, handcrafted gifts story, The Crafted Tale',
-  ogTitle: 'Our Story | The Crafted Tale — Handmade Gift Studio',
-  ogDescription: aboutDescription,
-  ogUrl: url.href,
-  twitterTitle: 'Our Story | The Crafted Tale — Handmade Gift Studio',
-  twitterDescription: aboutDescription,
 })
 
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'AboutPage',
-        'name': 'About The Crafted Tale',
-        'description': aboutDescription,
-        'url': url.href,
-        'inLanguage': 'en-IN',
-        'mainEntity': {
-          '@type': 'Organization',
-          'name': 'The Crafted Tale',
-          'url': url.origin,
-          'description': 'Bespoke handmade gifts studio crafting personalized creations for every occasion across India.',
-          'email': contact.email,
-          'telephone': contact.phone,
-          'address': {
-            '@type': 'PostalAddress',
-            'addressCountry': 'IN',
-          },
-          'sameAs': [contact.instagram, contact.facebook, contact.youtube],
-        },
-      }),
-    },
-  ],
+defineOgImageComponent('Default', {
+  title: 'Our Story',
+  description: aboutDescription,
 })
+
+// The Organization itself is declared site-wide in `schemaOrg.identity`
+// (nuxt.config.ts); this page just marks itself as the page about it.
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Home', item: '/' },
+      { name: 'Our Story', item: '/about' },
+    ],
+  }),
+  defineWebPage({ '@type': 'AboutPage' }),
+])
 
 const storyImgSrc = ref(
   'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=560&h=640&fit=crop',

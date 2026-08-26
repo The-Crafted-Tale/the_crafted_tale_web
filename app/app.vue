@@ -11,27 +11,11 @@
 </template>
 
 <script setup lang="ts">
-const url = useRequestURL()
-
-const route = useRoute()
-
-useHead({
-  link: [
-    { rel: 'canonical', href: computed(() => `${url.origin}${route.path}`) },
-  ],
-})
-
-useSeoMeta({
-  ogSiteName: 'The Crafted Tale',
-  ogType: 'website',
-  ogImage: `${url.origin}/og-image.png`,
-  ogImageWidth: 1200,
-  ogImageHeight: 630,
-  ogLocale: 'en_IN',
-  twitterCard: 'summary_large_image',
-  twitterImage: `${url.origin}/og-image.png`,
-  twitterSite: '@thecraftedtale.shop',
-})
+/**
+ * Canonical URLs, og:site_name, og:locale, twitter:card and the default
+ * og:image all come from `site` + the @nuxtjs/seo modules in nuxt.config.ts.
+ * Pages set only their own title, description and og image.
+ */
 </script>
 
 <style lang="scss" scoped>

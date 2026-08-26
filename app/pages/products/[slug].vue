@@ -84,93 +84,50 @@ if (!product.value) {
   })
 }
 
-const url = useRequestURL()
-
 const productDescription
   = product.value.description ?? `Explore ${product.value.name} — a handcrafted creation from The Crafted Tale.`
 
 useSeoMeta({
-  title: `${product.value.name} | The Crafted Tale`,
-  description: productDescription,
-  ogTitle: `${product.value.name} | The Crafted Tale`,
-  ogDescription: productDescription,
-  ogUrl: url.href,
+  title: product.value.name,
+  // Full copy stays in the structured data below; the meta tag gets the short
+  // version, since search results cut it off around 160 characters anyway.
+  description: toMetaDescription(productDescription),
   ogImage: product.value.images[0],
-  twitterTitle: `${product.value.name} | The Crafted Tale`,
-  twitterDescription: productDescription,
   twitterImage: product.value.images[0],
 })
 
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': product.value.name,
-        'description': productDescription,
-        'image': product.value.images,
-        'url': url.href,
-        'brand': {
-          '@type': 'Brand',
-          'name': 'The Crafted Tale',
-        },
-        'manufacturer': {
-          '@type': 'Organization',
-          'name': 'The Crafted Tale',
-          'url': url.origin,
-        },
-        'countryOfOrigin': {
-          '@type': 'Country',
-          'name': 'India',
-        },
-        'itemCondition': 'https://schema.org/NewCondition',
-        'offers': {
-          '@type': 'Offer',
-          'price': product.value.price,
-          'priceCurrency': 'INR',
-          'availability': 'https://schema.org/InStock',
-          'url': url.href,
-          'seller': {
-            '@type': 'Organization',
-            'name': 'The Crafted Tale',
-            'url': url.origin,
-          },
-          'areaServed': 'IN',
-          'itemCondition': 'https://schema.org/NewCondition',
-        },
-      }),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        'itemListElement': [
-          {
-            '@type': 'ListItem',
-            'position': 1,
-            'name': 'Home',
-            'item': url.origin,
-          },
-          {
-            '@type': 'ListItem',
-            'position': 2,
-            'name': 'Products',
-            'item': `${url.origin}/products`,
-          },
-          {
-            '@type': 'ListItem',
-            'position': 3,
-            'name': product.value.name,
-            'item': url.href,
-          },
-        ],
-      }),
-    },
-  ],
-})
+// A product with photos shares the photo; one without falls back to the
+// generated brand card rather than the same static image every other page uses.
+if (!product.value.images.length) {
+  defineOgImageComponent('Default', {
+    title: product.value.name,
+    description: productDescription,
+  })
+}
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Home', item: '/' },
+      { name: 'Products', item: '/products' },
+      { name: product.value.name, item: `/products/${product.value.slug}` },
+    ],
+  }),
+  defineProduct({
+    name: product.value.name,
+    description: productDescription,
+    image: product.value.images,
+    countryOfOrigin: { '@type': 'Country', 'name': 'India' },
+    offers: [{
+      price: product.value.price,
+      priceCurrency: 'INR',
+      availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+      areaServed: 'IN',
+    }],
+  }),
+  defineWebPage({ '@type': 'ItemPage' }),
+])
 
 const contact = useContactInfo()
 

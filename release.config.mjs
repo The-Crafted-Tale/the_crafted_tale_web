@@ -9,10 +9,9 @@
 
 /** @type {import('semantic-release').GlobalConfig} */
 export default {
-  branches: [
-    "main", // production releases from main only
-    { name: "develop", prerelease: true }, // develop → pre-releases e.g. 1.1.0-develop.1
-  ],
+  // Trunk-based: `main` is the only long-lived branch, so it is the only one
+  // that releases. See .github/BRANCHING.md.
+  branches: ["main"],
 
   plugins: [
     // 1. Analyse commits to determine next version

@@ -117,20 +117,28 @@
 <script setup lang="ts">
 const contact = useContactInfo()
 
-const url = useRequestURL()
+const contactDescription
+  = 'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.'
 
 useSeoMeta({
-  title: 'Contact | The Crafted Tale',
-  description:
-      'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
-  ogTitle: 'Contact | The Crafted Tale',
-  ogDescription:
-      'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
-  ogUrl: url.href,
-  twitterTitle: 'Contact | The Crafted Tale',
-  twitterDescription:
-      'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.',
+  title: 'Contact',
+  description: contactDescription,
 })
+
+defineOgImageComponent('Default', {
+  title: 'Contact Us',
+  description: contactDescription,
+})
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Home', item: '/' },
+      { name: 'Contact', item: '/contact' },
+    ],
+  }),
+  defineWebPage({ '@type': 'ContactPage' }),
+])
 
 const route = useRoute()
 

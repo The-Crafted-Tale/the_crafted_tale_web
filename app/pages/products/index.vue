@@ -38,43 +38,18 @@
 <script setup lang="ts">
 import type { ProductCategory } from '~/types'
 
-const url = useRequestURL()
-
 const productsDescription = `Browse handcrafted gifts, keepsakes & personalized creations for weddings, birthdays, and festive occasions.
 Custom, semi-custom & ready-made options — all made by hand in India.`
 
 useSeoMeta({
-  title: 'Handcrafted Gifts & Personalized Keepsakes | The Crafted Tale',
+  title: 'Handcrafted Gifts & Personalized Keepsakes',
   description: productsDescription,
   keywords: 'handcrafted gifts, personalized keepsakes, custom gifts India, semi-custom gifts, ready-made handmade gifts, wedding gifts, birthday gifts, festive gifts India',
-  ogTitle: 'Handcrafted Gifts & Personalized Keepsakes | The Crafted Tale',
-  ogDescription: productsDescription,
-  ogUrl: url.href,
-  twitterTitle: 'Handcrafted Gifts & Personalized Keepsakes | The Crafted Tale',
-  twitterDescription: productsDescription,
 })
 
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        'name': 'Handcrafted Gifts & Personalized Keepsakes',
-        'description': productsDescription,
-        'url': url.href,
-        'inLanguage': 'en-IN',
-        'breadcrumb': {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': url.origin },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Products', 'item': url.href },
-          ],
-        },
-      }),
-    },
-  ],
+defineOgImageComponent('Default', {
+  title: 'Handcrafted Gifts & Personalized Keepsakes',
+  description: productsDescription,
 })
 
 const tabs: { label: string, value: ProductCategory | undefined }[] = [
@@ -86,9 +61,28 @@ const tabs: { label: string, value: ProductCategory | undefined }[] = [
 
 const activeCategory = ref<ProductCategory | undefined>(undefined)
 
-const { getByCategory } = await useProductStore()
+const { products, getByCategory } = await useProductStore()
 
 const filteredProducts = computed(() => getByCategory(activeCategory.value))
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Home', item: '/' },
+      { name: 'Products', item: '/products' },
+    ],
+  }),
+  defineWebPage({ '@type': 'CollectionPage' }),
+  // Lists every product regardless of the active tab — the tab filter is
+  // client-side state, not a distinct URL, so the crawlable page is the full set.
+  defineItemList({
+    itemListElement: products.value.map((product) => ({
+      '@type': 'ListItem',
+      'name': product.name,
+      'url': `/products/${product.slug}`,
+    })),
+  }),
+])
 </script>
 
 <style lang="scss" scoped>
