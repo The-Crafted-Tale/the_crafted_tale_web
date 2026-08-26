@@ -3,7 +3,10 @@
       <div class="gallery__main">
          <img v-if="failedImages.has(activeIndex) || !images[activeIndex]" :src="placeholderProduct" :alt="alt"
             class="gallery__main-image gallery__main-image--placeholder" />
-         <NuxtImg v-else :src="images[activeIndex]" :alt="alt" class="gallery__main-image"
+         <!-- The LCP element on a product page: eagerly loaded and preloaded
+              rather than lazy, so it is not discovered late. -->
+         <NuxtImg v-else :src="images[activeIndex]" :alt="alt" class="gallery__main-image" width="720" height="720"
+            sizes="(max-width: 768px) 100vw, 640px" format="webp" preload loading="eager" fetchpriority="high"
             @error="onImageError(activeIndex)" />
       </div>
 
@@ -13,8 +16,8 @@
             :aria-label="`View image ${index + 1}`" type="button" @click="activeIndex = index">
             <img v-if="failedImages.has(index) || !src" :src="placeholderProduct" :alt="`${alt} thumbnail ${index + 1}`"
                class="gallery__thumb-placeholder" />
-            <NuxtImg v-else :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy"
-               @error="onImageError(index)" />
+            <NuxtImg v-else :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" width="128" height="128"
+               sizes="64px" format="webp" @error="onImageError(index)" />
          </button>
       </div>
    </div>
