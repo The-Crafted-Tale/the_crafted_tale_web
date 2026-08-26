@@ -11,6 +11,16 @@ const CONTACT = {
   youtube: "https://youtube.com/thecraftedtale.shop",
 }
 
+// Primary market. The studio is service-area-only for now: there is no public
+// street address, so `streetAddress` is deliberately absent from the schema
+// identity below. Add it here (and in the Google Business Profile) if a
+// walk-in address is ever published.
+const LOCATION = {
+  city: "Hyderabad",
+  region: "Telangana",
+  country: "IN",
+}
+
 // Public storage bucket host for product photography.
 const supabaseHost = process.env.NUXT_SUPABASE_URL
   ? new URL(process.env.NUXT_SUPABASE_URL).host
@@ -55,7 +65,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s %separator %siteName",
       meta: [
         { "http-equiv": "content-language", "content": "en" },
-        { name: "description", content: "The Crafted Tale — bespoke handmade gifts for every occasion. Custom, semi-custom, and ready-made creations crafted with love and delivered with care across India." },
+        { name: "description", content: "The Crafted Tale — bespoke handmade gifts for every occasion, handcrafted in Hyderabad. Custom, semi-custom, and ready-made creations delivered with care across India." },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "theme-color", content: "#8B1C1C" },
       ],
@@ -78,7 +88,7 @@ export default defineNuxtConfig({
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL || "https://thecraftedtale.com",
     name: "The Crafted Tale",
-    description: "Bespoke handmade gifts for every occasion — custom, semi-custom, and ready-made creations crafted with love and delivered with care across India.",
+    description: "Bespoke handmade gifts for every occasion — custom, semi-custom, and ready-made creations, handcrafted in Hyderabad and delivered with care across India.",
     defaultLocale: "en-IN",
     indexable: isProductionDeploy,
   },
@@ -161,17 +171,28 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: {
       // Must be a single string — the module lowercases it to pick a preset.
-      // The storefront nature is expressed with `additionalType` instead.
-      type: "Organization",
+      // LocalBusiness (not Organization) is what ties the entity to a place;
+      // the storefront nature is expressed with `additionalType` instead.
+      type: "LocalBusiness",
       additionalType: "https://schema.org/Store",
       name: "The Crafted Tale",
       logo: "/og-image.png",
       image: "/og-image.png",
-      description: "Bespoke handmade gifts for every occasion — custom, semi-custom, and ready-made creations crafted with love and delivered with care across India.",
+      description: "Bespoke handmade gifts for every occasion — custom, semi-custom, and ready-made creations, handcrafted in Hyderabad and delivered with care across India.",
       email: CONTACT.email,
       telephone: CONTACT.phone,
-      address: { addressCountry: "IN" },
-      areaServed: "IN",
+      address: {
+        "@type": "PostalAddress",
+        "addressLocality": LOCATION.city,
+        "addressRegion": LOCATION.region,
+        "addressCountry": LOCATION.country,
+      },
+      // Local first, national second — the studio ships India-wide but competes
+      // for Hyderabad intent.
+      areaServed: [
+        { "@type": "City", "name": LOCATION.city },
+        { "@type": "Country", "name": "India" },
+      ],
       priceRange: "₹₹",
       currenciesAccepted: "INR",
       paymentAccepted: "Cash, UPI, Bank Transfer",

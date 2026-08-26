@@ -53,6 +53,20 @@
 
                   <div class="contact-page__info-item">
                      <div class="contact-page__info-icon">
+                        <Icon name="mdi:map-marker-outline" size="1.25rem" />
+                     </div>
+                     <div>
+                        <p class="contact-page__info-label">
+                           Based in
+                        </p>
+                        <p class="contact-page__info-value">
+                           Hyderabad, Telangana — shipping across India
+                        </p>
+                     </div>
+                  </div>
+
+                  <div class="contact-page__info-item">
+                     <div class="contact-page__info-icon">
                         <Icon name="mdi:whatsapp" size="1.25rem" />
                      </div>
                      <div>
@@ -118,7 +132,7 @@
 const contact = useContactInfo()
 
 const contactDescription
-  = 'Get in touch with The Crafted Tale for custom orders, inquiries, or to say hello. We respond within 24 hours.'
+  = 'Get in touch with The Crafted Tale, a handmade gifts studio in Hyderabad, for custom orders, inquiries, or to say hello. We respond within 24 hours.'
 
 useSeoMeta({
   title: 'Contact',

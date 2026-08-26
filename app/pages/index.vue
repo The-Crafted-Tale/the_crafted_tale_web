@@ -11,17 +11,17 @@
 
 <script setup lang="ts">
 const homeDescription
-  = 'Shop bespoke handmade gifts for weddings, birthdays, festivals & every special occasion. Custom, semi-custom & ready-made creations crafted with love in India.'
+  = 'Shop bespoke handmade gifts for weddings, birthdays, festivals & every special occasion. Handcrafted in Hyderabad — custom, semi-custom & ready-made, delivered across India.'
 
 // The brand suffix comes from `titleTemplate` in nuxt.config.ts.
 useSeoMeta({
-  title: 'Handmade Gifts, Delivered with Love',
+  title: 'Handmade Gifts in Hyderabad, Delivered with Love',
   description: homeDescription,
-  keywords: 'handmade gifts India, personalized gifts, custom gift boxes, bespoke gifts, handcrafted keepsakes, wedding gifts India, birthday gifts handmade, The Crafted Tale',
+  keywords: 'handmade gifts Hyderabad, personalized gifts Hyderabad, custom gift boxes, bespoke gifts, handcrafted keepsakes, wedding gifts Hyderabad, The Crafted Tale',
 })
 
 defineOgImageComponent('Default', {
-  title: 'Handmade Gifts, Delivered with Love',
+  title: 'Handmade Gifts in Hyderabad, Delivered with Love',
   description: homeDescription,
 })
 
