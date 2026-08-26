@@ -141,12 +141,12 @@ import placeholderStory from '~/assets/images/placeholder-story.svg'
 const contact = useContactInfo()
 
 const aboutDescription
-  = 'Learn the story behind The Crafted Tale — a handmade gifts studio in India creating bespoke personalized gifts for weddings, birthdays, and every heartfelt occasion.'
+  = 'Learn the story behind The Crafted Tale — a handmade gifts studio in Hyderabad creating bespoke personalized gifts for weddings, birthdays, and every heartfelt occasion.'
 
 useSeoMeta({
   title: 'Our Story',
   description: aboutDescription,
-  keywords: 'handmade gift studio India, bespoke gifts maker, personalized gift creator, handcrafted gifts story, The Crafted Tale',
+  keywords: 'handmade gift studio Hyderabad, bespoke gifts maker Hyderabad, personalized gift creator, handcrafted gifts story, The Crafted Tale',
 })
 
 defineOgImageComponent('Default', {

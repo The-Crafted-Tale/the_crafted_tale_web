@@ -8,7 +8,7 @@
         <span class="hero__title-accent">One Gift at a Time</span>
       </h1>
       <p class="hero__desc">
-        Handmade with love, delivered with care
+        Handmade with love in Hyderabad, delivered with care across India
       </p>
       <div class="hero__actions">
         <AppButton variant="gold" size="lg" href="/products">

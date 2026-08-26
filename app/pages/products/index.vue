@@ -39,16 +39,16 @@
 import type { ProductCategory } from '~/types'
 
 const productsDescription = `Browse handcrafted gifts, keepsakes & personalized creations for weddings, birthdays, and festive occasions.
-Custom, semi-custom & ready-made options — all made by hand in India.`
+Custom, semi-custom & ready-made options — all made by hand in Hyderabad, delivered across India.`
 
 useSeoMeta({
-  title: 'Handcrafted Gifts & Personalized Keepsakes',
+  title: 'Handcrafted Gifts & Personalized Keepsakes in Hyderabad',
   description: productsDescription,
-  keywords: 'handcrafted gifts, personalized keepsakes, custom gifts India, semi-custom gifts, ready-made handmade gifts, wedding gifts, birthday gifts, festive gifts India',
+  keywords: 'handcrafted gifts Hyderabad, personalized keepsakes, custom gifts Hyderabad, semi-custom gifts, ready-made handmade gifts, wedding gifts, festive gifts',
 })
 
 defineOgImageComponent('Default', {
-  title: 'Handcrafted Gifts & Personalized Keepsakes',
+  title: 'Handcrafted Gifts & Personalized Keepsakes in Hyderabad',
   description: productsDescription,
 })
 

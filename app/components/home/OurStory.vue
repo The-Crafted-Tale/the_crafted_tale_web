@@ -20,7 +20,8 @@
         </h2>
         <p class="story__text">
           At The Crafted Tale, we believe in the magic of handmade. Each creation is carefully
-          crafted with passion, turning everyday moments into treasured memories.
+          crafted by hand in our Hyderabad studio, turning everyday moments into treasured
+          memories.
         </p>
         <p class="story__text">
           From personalized keepsakes to bespoke gift boxes, we pour our heart into every detail —
