@@ -3,21 +3,38 @@
       <div class="gallery__main">
          <img v-if="failedImages.has(activeIndex) || !images[activeIndex]" :src="placeholderProduct" :alt="alt"
             class="gallery__main-image gallery__main-image--placeholder" />
+         <!-- Product clips live in the same Supabase array as the photos, so the
+              gallery plays them inline instead of handing them to NuxtImg. -->
+         <video v-else-if="isVideoUrl(images[activeIndex]!)" :src="images[activeIndex]" :poster="posterUrl"
+            :aria-label="`${alt} video`" class="gallery__main-image" controls playsinline preload="metadata"
+            @error="onMediaError(activeIndex)" />
          <!-- The LCP element on a product page: eagerly loaded and preloaded
               rather than lazy, so it is not discovered late. -->
          <NuxtImg v-else :src="images[activeIndex]" :alt="alt" class="gallery__main-image" width="720" height="720"
             sizes="(max-width: 768px) 100vw, 640px" format="webp" preload loading="eager" fetchpriority="high"
-            @error="onImageError(activeIndex)" />
+            @error="onMediaError(activeIndex)" />
       </div>
 
       <div v-if="images.length > 1" class="gallery__thumbs">
          <button v-for="(src, index) in images" :key="index"
             :class="['gallery__thumb', { 'gallery__thumb--active': index === activeIndex }]"
-            :aria-label="`View image ${index + 1}`" type="button" @click="activeIndex = index">
+            :aria-label="isVideoUrl(src) ? `Play video ${index + 1}` : `View image ${index + 1}`" type="button"
+            @click="activeIndex = index">
             <img v-if="failedImages.has(index) || !src" :src="placeholderProduct" :alt="`${alt} thumbnail ${index + 1}`"
                class="gallery__thumb-placeholder" />
+            <!-- A video has no thumbnail of its own; it borrows the poster and
+                 wears a play badge so it reads as a clip, not a still. -->
+            <template v-else-if="isVideoUrl(src)">
+               <img v-if="!posterImage" :src="placeholderProduct" :alt="`${alt} video thumbnail ${index + 1}`"
+                  class="gallery__thumb-placeholder" />
+               <NuxtImg v-else :src="posterImage" :alt="`${alt} video thumbnail ${index + 1}`" loading="lazy" width="128"
+                  height="128" sizes="64px" format="webp" />
+               <span class="gallery__thumb-play" aria-hidden="true">
+                  <Icon name="mdi:play" size="1.125rem" />
+               </span>
+            </template>
             <NuxtImg v-else :src="src" :alt="`${alt} thumbnail ${index + 1}`" loading="lazy" width="128" height="128"
-               sizes="64px" format="webp" @error="onImageError(index)" />
+               sizes="64px" format="webp" @error="onMediaError(index)" />
          </button>
       </div>
    </div>
@@ -27,11 +44,12 @@
 import placeholderProduct from '~/assets/images/placeholder-product.svg'
 
 interface Props {
+  /** Product media in studio order — photography, with the occasional clip. */
   images: string[]
   alt?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   alt: 'Product image',
 })
 
@@ -39,7 +57,19 @@ const activeIndex = ref(0)
 
 const failedImages = ref(new Set<number>())
 
-const onImageError = (index: number): void => {
+// Supabase stores no still for a clip, so the first product photo stands in as
+// the poster. Without one the browser shows a black frame until playback.
+const posterImage = computed(() => imageUrls(props.images)[0])
+
+// `poster` is a plain attribute, so it misses the NuxtImg pipeline the rest of
+// the gallery goes through — size it through the optimizer by hand.
+const img = useImage()
+
+const posterUrl = computed(() =>
+  posterImage.value ? img(posterImage.value, { width: 720, height: 720, format: 'webp' }) : undefined,
+)
+
+const onMediaError = (index: number): void => {
   failedImages.value = new Set([...failedImages.value, index])
 }
 </script>
@@ -73,6 +103,17 @@ const onImageError = (index: number): void => {
       }
    }
 
+   &__thumb-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: rgba($brand-red-dark, 0.35);
+      pointer-events: none;
+   }
+
    &__thumbs {
       display: flex;
       gap: 0.5rem;
@@ -88,6 +129,7 @@ const onImageError = (index: number): void => {
    }
 
    &__thumb {
+      position: relative;
       flex-shrink: 0;
       width: 4rem;
       height: 4rem;

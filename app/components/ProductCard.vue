@@ -24,7 +24,9 @@ import type { Product } from '~/types'
 
 const props = defineProps<{ product: Product }>()
 
-const imgSrc = ref(props.product.images[0] || placeholderProduct)
+// `images` can carry a product clip, which the optimizer answers with a 400 —
+// the card wants the first actual photograph.
+const imgSrc = ref(imageUrls(props.product.images)[0] || placeholderProduct)
 
 const onImgError = (): void => {
   imgSrc.value = placeholderProduct

@@ -84,6 +84,10 @@ if (!product.value) {
   })
 }
 
+// The gallery shows every entry, video included; SEO surfaces take photos only
+// (Google rejects a video URL in `Product.image`, `og:image`, `twitter:image`).
+const productImages = computed(() => imageUrls(product.value?.images ?? []))
+
 const productDescription
   = product.value.description ?? `Explore ${product.value.name} — a handcrafted creation from The Crafted Tale.`
 
@@ -92,13 +96,13 @@ useSeoMeta({
   // Full copy stays in the structured data below; the meta tag gets the short
   // version, since search results cut it off around 160 characters anyway.
   description: toMetaDescription(productDescription),
-  ogImage: product.value.images[0],
-  twitterImage: product.value.images[0],
+  ogImage: productImages.value[0],
+  twitterImage: productImages.value[0],
 })
 
 // A product with photos shares the photo; one without falls back to the
 // generated brand card rather than the same static image every other page uses.
-if (!product.value.images.length) {
+if (!productImages.value.length) {
   defineOgImageComponent('Default', {
     title: product.value.name,
     description: productDescription,
@@ -116,7 +120,7 @@ useSchemaOrg([
   defineProduct({
     name: product.value.name,
     description: productDescription,
-    image: product.value.images,
+    image: productImages.value,
     countryOfOrigin: { '@type': 'Country', 'name': 'India' },
     offers: [{
       price: product.value.price,
