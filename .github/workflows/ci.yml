@@ -31,7 +31,7 @@ jobs:
         id: cache
         with:
           path: node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
           restore-keys: bun-${{ runner.os }}-
 
       - name: Install dependencies
@@ -65,7 +65,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Restore .nuxt cache
         uses: actions/cache@v6
@@ -97,7 +97,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Restore .nuxt cache
         uses: actions/cache@v6
@@ -108,40 +108,11 @@ jobs:
       - name: Run TypeScript typecheck
         run: bun nuxt typecheck
 
-  # ─── Gate 3: Tests (placeholder — uncomment when Vitest is set up) ───────
-  # test:
-  #   name: Tests
-  #   runs-on: ubuntu-latest
-  #   needs: typecheck
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v7
-  #
-  #     - name: Setup Bun
-  #       uses: oven-sh/setup-bun@v2
-  #       with:
-  #         bun-version: latest
-  #
-  #     - name: Restore dependencies cache
-  #       uses: actions/cache@v6
-  #       with:
-  #         path: node_modules
-  #         key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
-  #
-  #     - name: Restore .nuxt cache
-  #       uses: actions/cache@v6
-  #       with:
-  #         path: .nuxt
-  #         key: nuxt-${{ runner.os }}-${{ hashFiles('nuxt.config.ts') }}
-  #
-  #     - name: Run tests
-  #       run: bun test:run
-
-  # ─── Gate 4: Build ───────────────────────────────────────────────────────
-  build:
-    name: Build
+  # ─── Gate 3: Tests ───────────────────────────────────────────────────────
+  test:
+    name: Tests
     runs-on: ubuntu-latest
-    needs: typecheck     # swap to `needs: test` once tests are added
+    needs: typecheck
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -155,7 +126,36 @@ jobs:
         uses: actions/cache@v6
         with:
           path: node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+
+      - name: Restore .nuxt cache
+        uses: actions/cache@v6
+        with:
+          path: .nuxt
+          key: nuxt-${{ runner.os }}-${{ hashFiles('nuxt.config.ts') }}
+
+      - name: Run tests
+        run: bun run test
+
+  # ─── Gate 4: Build ───────────────────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v6
+        with:
+          path: node_modules
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
 
       - name: Build Nuxt app
         run: bun run build

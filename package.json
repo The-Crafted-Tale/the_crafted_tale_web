@@ -4,18 +4,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "build": "bun --bun nuxt build",
+    "dev": "bun --bun nuxt dev",
+    "generate": "bun --bun nuxt generate",
+    "preview": "bun --bun nuxt preview",
+    "postinstall": "bun --bun nuxt prepare",
+    "prepare": "commitguard install",
+    "lint": "bunx --bun stylelint \"**/*.scss\"; bunx --bun eslint .",
+    "lint:style": "bunx --bun stylelint \"**/*.scss\"",
+    "lint:fix": "bunx --bun stylelint --fix \"**/*.scss\"; bunx --bun eslint . --fix",
+    "typecheck": "bunx --bun nuxt typecheck",
+    "clean": "rm -rf .nuxt .output dist",
+    "clean:all": "bun clean && rm -rf bun.lock node_modules",
+    "test": "bunx --bun vitest run",
+    "test:watch": "bunx --bun vitest"
   },
   "dependencies": {
     "@nuxt/icon": "^2.2.1",
     "@nuxt/image": "^2.0.0",
-    "@nuxtjs/sitemap": "^8.0.15",
+    "@nuxtjs/seo": "^5.3.14",
     "@supabase/supabase-js": "^2.93.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
@@ -24,10 +31,11 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.2",
-    "@commitlint/config-conventional": "^21.0.2",
     "@iconify-json/mdi": "^1.2.3",
+    "@moulibheemaneti/commitguard": "^0.1.4",
     "@nuxt/eslint": "^1.15.2",
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/test-utils": "^4.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -35,13 +43,17 @@
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@stylistic/stylelint-plugin": "^5.2.0",
+    "@takumi-rs/core": "^2.12.0",
+    "@vue/test-utils": "^2.4.11",
     "conventional-changelog-conventionalcommits": "^10.2.0",
     "eslint": "^9.0.0 || ^10.0.0",
-    "husky": "^9.1.7",
+    "happy-dom": "^20.11.6",
     "sass": "^1.100.0",
     "semantic-release": "^25.0.3",
     "stylelint": "^17.12.0",
     "stylelint-config-standard": "^40.0.0",
-    "stylelint-config-standard-scss": "^17.0.0"
+    "stylelint-config-standard-scss": "^17.0.0",
+    "vitest": "^4.1.11",
+    "vue-tsc": "^3.3.11"
   }
 }

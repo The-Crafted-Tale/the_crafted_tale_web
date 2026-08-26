@@ -32,9 +32,21 @@ updates:
           - "@eslint/*"
           - "stylelint*"
           - "@stylistic/*"
-          - "lint-staged"
-          - "husky"
-          - "@commitlint/*"
+          - "@moulibheemaneti/commitguard"
+        update-types:
+          - "minor"
+          - "patch"
+
+      seo-tools:
+        patterns:
+          - "@nuxtjs/seo"
+          - "nuxt-robots"
+          - "nuxt-sitemap"
+          - "nuxt-og-image"
+          - "nuxt-schema-org"
+          - "nuxt-link-checker"
+          - "nuxt-seo-utils"
+          - "@takumi-rs/*"
         update-types:
           - "minor"
           - "patch"
