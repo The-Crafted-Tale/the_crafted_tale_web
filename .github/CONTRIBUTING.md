@@ -46,10 +46,10 @@ what each key does.
 
 We follow the strategy documented in [`BRANCHING.md`](BRANCHING.md). In short:
 
-- Branch off `develop` — never off `main`
+- Branch off `main` — it is the only long-lived branch
 - Name branches `type/short-description` (e.g. `feat/product-filters`, `fix/contact-validation`)
-- Open pull requests against `develop`; `develop` merges to `main` for release
-- Never push directly to `main` or `develop`
+- Open pull requests against `main`; never push to it directly
+- Keep branches small and short-lived, and delete them after merging
 
 ---
 
@@ -116,7 +116,7 @@ Put a new test in the one that matches what it needs — see the
 
 1. Make sure `bun lint`, `bun typecheck` and `bun run test` pass, and the app
    builds (`bun run build`).
-2. Push your branch and open a PR against `develop`.
+2. Push your branch and open a PR against `main`.
 3. Fill out the [pull request template](pull_request_template.md) completely —
    include screenshots for any UI change.
 4. Link any related issues.

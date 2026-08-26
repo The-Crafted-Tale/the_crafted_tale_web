@@ -172,9 +172,11 @@ Then look at `/robots.txt`, `/sitemap.xml`, and the `<title>`, canonical and
 
 ## Git Workflow
 
-See [`.github/BRANCHING.md`](.github/BRANCHING.md). Branch off `develop`, name
-branches `type/short-description`, and open PRs against `develop`; `develop`
-merges into `main` to release. `main` and `develop` are protected.
+Trunk-based — see [`.github/BRANCHING.md`](.github/BRANCHING.md). `main` is the
+only long-lived branch and is protected; branch off it as
+`type/short-description`, open a PR back into it, and delete the branch after
+merging. Every PR gets its own Vercel preview deploy, which is what an
+integration branch would otherwise be for.
 
 ## Code Style
 
@@ -186,8 +188,8 @@ BEM naming. Both run — along with `typecheck` — on every commit via
 ## Releases
 
 [semantic-release](release.config.mjs) reads the commit log on every push to
-`main` (and cuts pre-releases from `develop`): `feat` bumps the minor version,
-`fix`/`perf`/`refactor` the patch, and a `BREAKING CHANGE` footer the major. It
+`main`: `feat` bumps the minor version, `fix`/`perf`/`refactor` the patch, and a
+`BREAKING CHANGE` footer the major. It
 writes `CHANGELOG.md`, bumps `package.json`, and publishes the GitHub release.
 
 ---

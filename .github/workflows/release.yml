@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main, develop]   # triggers on both — develop creates pre-releases
+    branches: [main]
 
 # Never run two releases in parallel
 concurrency:
